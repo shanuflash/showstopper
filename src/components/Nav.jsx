@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
+import supabase from "../supabase";
+import { toast } from "react-toastify";
 
 function Nav() {
   const { setUser, setEmail, setResult } = useContext(DataContext);
