@@ -14,6 +14,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DataProvider from "./context/DataProvider";
+import MovieInfo from "./components/MovieInfo";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
     path: "/Account",
     element: <Account />,
   },
+  {
+    path: "/:movieid",
+    element: <MovieInfo />,
+  },
 ]);
 AOS.init();
 
@@ -53,7 +58,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       draggable
       pauseOnHover
       theme="colored"
-      // theme="light"
     />
   </DataProvider>
 );

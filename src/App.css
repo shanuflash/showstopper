@@ -13,7 +13,7 @@
 
 .logo {
   font-family: "Bebas Neue", cursive;
-  font-size: 3.5rem;
+  font-size: 3.2rem;
 }
 
 .master {
@@ -206,7 +206,7 @@ input[type="number"] {
 
 .test {
   position: absolute;
-  top: 3.6rem;
+  top: 3.4rem;
   right: 0;
   width: fit-content;
   display: flex;
@@ -286,4 +286,57 @@ input[type="number"] {
 
 .test1 {
   height: 100vh;
+}
+
+.search-container {
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  padding: 6rem 1rem 1rem 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-top: 5.25rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.movie-info {
+  height: 70vh;
+  display: flex;
+  align-items: flex-end;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.genres {
+  padding-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+.genre-item {
+  background-color: rgba(0, 0, 0, 0.521);
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.genre-item:hover {
+  font-weight: 700;
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+.movie-card {
+  width: 300px;
+  height: 120px;
+  border-radius: 1rem;
+}
+
+.movie-card[data-color="1"] {
+  background: green !important;
 }

@@ -31,3 +31,14 @@ body {
 * {
   box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  padding: 0 4px;
+  background-color: var(--ascent);
+  background-clip: padding-box;
+  border-radius: 2rem;
+}
