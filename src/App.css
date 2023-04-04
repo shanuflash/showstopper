@@ -1,8 +1,10 @@
 .nav {
+  position: fixed;
+  top: 0;
   display: flex;
   /* background: linear-gradient(to bottom, #00000086, #00000013); */
   justify-content: space-between;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   width: 100vw;
   padding: 0 2rem;
@@ -227,8 +229,9 @@ input[type="number"] {
 }
 
 .popular {
-  position: absolute;
-  bottom: 3rem;
+  height: fit-content;
+  /* position: absolute; */
+  /* bottom: 3rem; */
   display: flex;
   gap: 2rem;
   /* overflow-x: scroll;
@@ -241,14 +244,14 @@ input[type="number"] {
   animation-fill-mode: forwards;
   will-change: transform;
 }
-@keyframes scroll {
+/* @keyframes scroll {
   0% {
     transform: translate3d(0, 0, 0);
   }
   100% {
     transform: translate3d(-85%, 0, 0);
   }
-}
+} */
 
 .card {
   flex-shrink: 0;
@@ -279,4 +282,8 @@ input[type="number"] {
   background-color: rgba(0, 0, 0, 0.521);
   border-radius: 2rem 0 2rem 2rem;
   padding: 0.5rem 1.4rem;
+}
+
+.test1 {
+  height: 100vh;
 }

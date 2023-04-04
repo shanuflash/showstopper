@@ -25,6 +25,10 @@ function Signup() {
     if (error) toast.error(error.message, { position: "bottom-right" });
     else {
       toast.info("Successfully signed up!", { position: "bottom-right" });
+      const { error } = await supabase
+        .from("netflix")
+        .insert({ userid: data.user.id, history: [], watch_list: [] });
+      console.error(error, { position: "bottom-right" });
       setUser(data.user.id);
       setPassword(null);
       navigate("/");

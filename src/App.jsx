@@ -5,7 +5,7 @@ import { DataContext } from "./context/DataProvider";
 import supabase from "./supabase";
 
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 /*
 image url = https://image.tmdb.org/t/p/w500/
@@ -79,11 +79,22 @@ personCombinedCredits
 */
 
 function App() {
-  const { Email, setEmail, User, setUser } = useContext(DataContext);
+  const {
+    setEmail,
+    User,
+    setUser,
+    SearchItem,
+    setSearchItem,
+    setResult,
+    isOpen,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useContext(DataContext);
   const [Bg, setBg] = useState(
     "http://occ-0-2484-3662.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABZgSZPxY1IqlyGClEuxnnzKH3cwcfhdz2Qj6HAwnYK1JVzOfrHNijT-XmTnVwpsT3lVv_Q7nY9PljiAIxz4rLxvbe8hRoaShSh2x.jpg?r=18a"
   );
   const [Popular, setPopular] = useState({});
+  const [Upcoming, setUpcoming] = useState({});
 
   useEffect(() => {
     tmdb
@@ -99,6 +110,13 @@ function App() {
       .moviePopular()
       .then((res) => {
         setPopular(res);
+      })
+      .catch(toast.error);
+
+    tmdb
+      .upcomingMovies()
+      .then((res) => {
+        console.log(res);
       })
       .catch(toast.error);
   }, []);
@@ -122,23 +140,32 @@ function App() {
     console.log(Popular);
   }, [Popular]);
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsOpen(false);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    tmdb
+      .searchMovie({ query: SearchItem })
+      .then((res) => {
+        setResult(res.results.filter((a) => a.backdrop_path !== null));
+        console.log(res.results);
+        navigate("/Search");
+      })
+      .catch(console.error);
   };
   return (
     <div className="App">
       <div className="nav">
         <div className="logo">ShowStopper</div>
         <div className="user">
-          <div className="search">
-            <input placeholder="Search for a movie..." type="text" />
-          </div>
+          <form className="search" onSubmit={handleSearch}>
+            <input
+              placeholder="Search for a movie..."
+              type="text"
+              onChange={(e) => setSearchItem(e.target.value)}
+            />
+            <button type="submit" style={{ visibility: "hidden" }}>
+              test
+            </button>
+          </form>
           <div
             className="user-info"
             onMouseEnter={handleMouseEnter}
@@ -156,7 +183,9 @@ function App() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <div className="menu-item">Account</div>
+              <Link to="/Account" className="menu-item">
+                Account
+              </Link>
               <div className="menu-item" onClick={handleLogout}>
                 Logout
               </div>
@@ -177,9 +206,7 @@ function App() {
         }}
       >
         <div className="featured">
-          <div className="featured-icon">
-            Featured
-          </div>
+          <div className="featured-icon">Featured</div>
           <div className="featured-title">John Wick: Chapter 4</div>
           <div className="featured-desc">
             With the price on his head ever increasing, John Wick uncovers a
@@ -203,12 +230,13 @@ function App() {
             >
               <div className="card-info">
                 <div className="card-title">{movie.title}</div>
-                <div className="card-rating">{movie.vote_average}</div>
+                <div className="card-rating">{movie.vote_average} &#9733;</div>
               </div>
             </div>
           </>
         ))}
       </div>
+      <div className="test1"></div>
     </div>
   );
 }

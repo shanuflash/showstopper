@@ -8,6 +8,7 @@ import App from "./App";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Search from "./components/Search";
+import Account from "./components/Account";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/Search",
     element: <Search />,
+  },
+  {
+    path: "/Account",
+    element: <Account />,
   },
 ]);
 AOS.init();
