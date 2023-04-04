@@ -39,17 +39,70 @@ tvReviews
 personInfo
 personImages
 personCombinedCredits
+
+"backdrop_sizes": [
+  "w300",
+  "w780",
+  "w1280",
+  "original"
+],
+"logo_sizes": [
+  "w45",
+  "w92",
+  "w154",
+  "w185",
+  "w300",
+  "w500",
+  "original"
+],
+"poster_sizes": [
+  "w92",
+  "w154",
+  "w185",
+  "w342",
+  "w500",
+  "w780",
+  "original"
+],
+"profile_sizes": [
+  "w45",
+  "w185",
+  "h632",
+  "original"
+],
+"still_sizes": [
+  "w92",
+  "w185",
+  "w300",
+  "original"
+]
 */
 
 function App() {
-  // tmdb
-  //   .personLatest({ id: "974169" })
-  //   .then((res) => {
-  //     console.log(res);
-  //   })
-  //   .catch(console.error);
-
   const { Email, setEmail, User, setUser } = useContext(DataContext);
+  const [Bg, setBg] = useState(
+    "http://occ-0-2484-3662.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABZgSZPxY1IqlyGClEuxnnzKH3cwcfhdz2Qj6HAwnYK1JVzOfrHNijT-XmTnVwpsT3lVv_Q7nY9PljiAIxz4rLxvbe8hRoaShSh2x.jpg?r=18a"
+  );
+  const [Popular, setPopular] = useState({});
+
+  useEffect(() => {
+    tmdb
+      .movieInfo({ id: "603692" })
+      .then((res) => {
+        if (res.backdrop_path) {
+          setBg("https://image.tmdb.org/t/p/w1280" + res.backdrop_path);
+        }
+      })
+      .catch(console.error);
+
+    tmdb
+      .moviePopular()
+      .then((res) => {
+        setPopular(res);
+      })
+      .catch(toast.error);
+  }, []);
+
   const navigate = useNavigate();
 
   const handleLogout = async (e) => {
@@ -65,13 +118,96 @@ function App() {
     if (!User) navigate("/Login");
   }, [User]);
 
+  useEffect(() => {
+    console.log(Popular);
+  }, [Popular]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
   return (
     <div className="App">
       <div className="nav">
         <div className="logo">ShowStopper</div>
-        <div className="logout">
-          <button onClick={handleLogout}>Logout</button>
+        <div className="user">
+          <div className="search">
+            <input placeholder="Search for a movie..." type="text" />
+          </div>
+          <div
+            className="user-info"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <img
+              src="http://occ-0-2484-3662.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdYJV5wt63AcxNaDoqDXUhqZb55oN5Dxt1m-Zdn_z5rn_hIq9m8dA8JB2xdcPmrY3yXnlVWYKPXnOrbv2QN4aEVU28dESJg.png?r=1d4"
+              alt=""
+            />
+          </div>
+
+          {isOpen && (
+            <div
+              className="test"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div className="menu-item">Account</div>
+              <div className="menu-item" onClick={handleLogout}>
+                Logout
+              </div>
+            </div>
+          )}
         </div>
+      </div>
+      <div
+        className="master"
+        style={{
+          background: `linear-gradient(to bottom,
+                      #000000c2 0%,
+                      #00000013 30%,
+                      #00000000 50%,
+                      #0c192133 60%,
+                      #0c192169 70%,
+                      var(--bg) 100%), url(${Bg})`,
+        }}
+      >
+        <div className="featured">
+          <div className="featured-icon">
+            Featured
+          </div>
+          <div className="featured-title">John Wick: Chapter 4</div>
+          <div className="featured-desc">
+            With the price on his head ever increasing, John Wick uncovers a
+            path to defeating The High Table. But before he can earn his
+            freedom, Wick must face off against a new enemy with powerful
+            alliances across the globe and forces that turn old friends into
+            foes.
+          </div>
+        </div>
+      </div>
+      <div className="popular">
+        {Popular.results?.map((movie) => (
+          <>
+            <div
+              className="card"
+              style={{
+                background: `url(${
+                  "https://image.tmdb.org/t/p/w300" + movie.backdrop_path
+                })`,
+              }}
+            >
+              <div className="card-info">
+                <div className="card-title">{movie.title}</div>
+                <div className="card-rating">{movie.vote_average}</div>
+              </div>
+            </div>
+          </>
+        ))}
       </div>
     </div>
   );
