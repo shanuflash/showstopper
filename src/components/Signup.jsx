@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { DataContext } from "../context/DataProvider";
 import supabase from "../supabase";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ function Signup() {
   const { User, setUser, Email, setEmail, Name, setName, Phno, setPhno } =
     useContext(DataContext);
   const [Password, setPassword] = useState(null);
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -21,13 +22,18 @@ function Signup() {
         },
       },
     });
-    if (error) toast.error(error.message);
+    if (error) toast.error(error.message, { position: "bottom-right" });
     else {
-      toast.info("Successfully signed up!");
+      toast.info("Successfully signed up!", { position: "bottom-right" });
       setUser(data.user.id);
       setPassword(null);
+      navigate("/");
     }
   };
+
+  useEffect(() => {
+    if (User) navigate("/");
+  }, [User]);
 
   return (
     <div className="Login reg">

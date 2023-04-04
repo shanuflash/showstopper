@@ -1,8 +1,11 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import tmdb from "./tmdb";
 import "./App.css";
 import { DataContext } from "./context/DataProvider";
-import { Link } from "react-router-dom";
+import supabase from "./supabase";
+
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 /*
 image url = https://image.tmdb.org/t/p/w500/
@@ -46,10 +49,29 @@ function App() {
   //   })
   //   .catch(console.error);
 
+  const { Email, setEmail, User, setUser } = useContext(DataContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.auth.signOut();
+    if (error) toast.error(error.message);
+    else toast.info("Successfully logged out!");
+    setUser(null);
+    setEmail(null);
+  };
+
+  useEffect(() => {
+    if (!User) navigate("/Login");
+  }, [User]);
+
   return (
     <div className="App">
       <div className="nav">
         <div className="logo">ShowStopper</div>
+        <div className="logout">
+          <button onClick={handleLogout}>Logout</button>
+        </div>
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
-import React, { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../context/DataProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import supabase from "../supabase";
 import { toast } from "react-toastify";
 
 function Login() {
   const { Email, setEmail, User, setUser } = useContext(DataContext);
   const [Password, setPassword] = useState(null);
+  const navigate = useNavigate();
 
   const handleSignin = async (e) => {
     e.preventDefault();
@@ -15,10 +16,17 @@ function Login() {
       password: Password,
     });
     if (error) toast.error(error.message);
-    else toast.info("Successfully logged in!");
-    setUser(data.user.id);
-    setPassword(null);
+    else {
+      toast.info("Successfully logged in!");
+      setUser(data.user.id);
+      setPassword(null);
+      navigate("/");
+    }
   };
+
+  useEffect(() => {
+    if (User) navigate("/");
+  }, [User]);
 
   return (
     <div className="Login">

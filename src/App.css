@@ -1,4 +1,6 @@
 .nav {
+  display: flex;
+  justify-content: space-between;
   position: absolute;
   top: 0;
   width: 100vw;
@@ -11,32 +13,13 @@
   font-size: 3.5rem;
 }
 
-.master {
+/* .master {
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.fade {
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.8) 0,
-    rgba(0, 0, 0, 0) 60%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
-}
-
-.master * {
-  z-index: 9;
-}
+} */
 
 .master-text {
   font-size: 2.5rem;
