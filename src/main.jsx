@@ -10,6 +10,8 @@ import Signup from "./components/Signup";
 import Search from "./components/Search";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import DataProvider from "./context/DataProvider";
 
 const router = createBrowserRouter([
@@ -35,5 +37,18 @@ AOS.init();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <DataProvider>
     <RouterProvider router={router} />
+    <ToastContainer
+      position="bottom-left"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+      // theme="light"
+    />
   </DataProvider>
 );

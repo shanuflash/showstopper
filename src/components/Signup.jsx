@@ -1,20 +1,34 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../context/DataProvider";
+import supabase from "../supabase";
+import { toast } from "react-toastify";
 
 function Signup() {
-  const {
-    User,
-    setUser,
-    Email,
-    setEmail,
-    Pass,
-    setPass,
-    Name,
-    setName,
-    Phno,
-    setPhno,
-  } = useContext(DataContext);
+  const { User, setUser, Email, setEmail, Name, setName, Phno, setPhno } =
+    useContext(DataContext);
+  const [Password, setPassword] = useState(null);
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const { data, error } = await supabase.auth.signUp({
+      email: Email,
+      password: Password,
+      options: {
+        data: {
+          name: Name,
+          phone: Phno,
+        },
+      },
+    });
+    if (error) toast.error(error.message);
+    else {
+      toast.info("Successfully signed up!");
+      setUser(data.user.id);
+      setPassword(null);
+    }
+  };
+
   return (
     <div className="Login reg">
       <form className="left" data-aos="fade-left">
@@ -61,13 +75,13 @@ function Signup() {
             id="password"
             className="input input-misc"
             type="password"
-            value={Pass}
-            onChange={(e) => setPass((prev) => e.target.value)}
+            value={Password}
+            onChange={(e) => setPassword((prev) => e.target.value)}
             placeholder="Enter password"
           />
         </div>
         <div className="button-container">
-          <button className="signup" type="submit">
+          <button onClick={handleSignup} className="signup" type="submit">
             Signup
           </button>
           <div className="action">

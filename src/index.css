@@ -4,6 +4,7 @@
 :root {
   --bg: #0c1921;
   --ascent: #00b4d8;
+  --toastify-color-info: #00b4d8;
 
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
