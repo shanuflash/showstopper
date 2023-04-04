@@ -1,10 +1,39 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+import App from "./App";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Search from "./components/Search";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DataProvider from "./context/DataProvider";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/Login",
+    element: <Login />,
+  },
+  {
+    path: "/Signup",
+    element: <Signup />,
+  },
+  {
+    path: "/Search",
+    element: <Search />,
+  },
+]);
+AOS.init();
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <DataProvider>
+    <RouterProvider router={router} />
+  </DataProvider>
+);
