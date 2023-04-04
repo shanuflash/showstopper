@@ -42,7 +42,9 @@ function Nav() {
 
   return (
     <div className="nav">
-      <div className="logo">ShowStopper</div>
+      <Link to="/" className="logo">
+        ShowStopper
+      </Link>
       <div className="user">
         <form className="search" onSubmit={handleSearch}>
           <input

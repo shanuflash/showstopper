@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { DataContext } from "../context/DataProvider";
-import { Link } from "react-router-dom";
+import { Link, ScrollRestoration } from "react-router-dom";
 import Nav from "./Nav";
 
 function Search() {
@@ -8,6 +8,7 @@ function Search() {
 
   return (
     <div className="App">
+      <ScrollRestoration />
       <Nav />
       <div
         className="search-container"
@@ -21,11 +22,12 @@ function Search() {
       >
         {Result?.map((item) => (
           <>
-            <div
+            <Link
+              to={`/${item.id}`}
               className="card"
               style={{
                 background: `url(${
-                  "https://image.tmdb.org/t/p/w300" + item.backdrop_path
+                  "https://image.tmdb.org/t/p/w300" + item?.backdrop_path
                 })`,
               }}
             >
@@ -33,7 +35,7 @@ function Search() {
                 <div className="card-title">{item.original_title}</div>
                 <div className="card-rating">{item.vote_average} &#9733;</div>
               </div>
-            </div>
+            </Link>
           </>
         ))}
       </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { ScrollRestoration, useParams } from "react-router-dom";
 import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
 import Nav from "./Nav";
@@ -19,6 +19,7 @@ function MovieInfo() {
 
   return (
     <div>
+      <ScrollRestoration />
       <Nav />
       <div
         className="movie-info"

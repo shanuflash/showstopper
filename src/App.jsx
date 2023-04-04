@@ -5,7 +5,7 @@ import { DataContext } from "./context/DataProvider";
 import supabase from "./supabase";
 
 import { toast } from "react-toastify";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, ScrollRestoration } from "react-router-dom";
 import Nav from "./components/Nav";
 
 /*
@@ -123,6 +123,7 @@ function App() {
 
   return (
     <div className="App">
+      <ScrollRestoration />
       <Nav />
       <div
         className="master"
