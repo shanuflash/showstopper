@@ -289,14 +289,22 @@ input[type="number"] {
 }
 
 .search-container {
-  background-repeat: no-repeat !important;
-  background-size: contain !important;
   padding: 6rem 1rem 1rem 1rem;
   display: flex;
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
   padding-top: 5.25rem;
+}
+
+.search-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh; /* adjust as needed */
+  background: linear-gradient(rgba(255, 255, 255, 0) 0%, var(--bg) 100%);
 }
 
 a {

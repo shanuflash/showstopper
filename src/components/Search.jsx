@@ -5,21 +5,11 @@ import Nav from "./Nav";
 
 function Search() {
   const { Result } = useContext(DataContext);
-
   return (
     <div className="App">
       <ScrollRestoration />
       <Nav />
-      <div
-        className="search-container"
-        style={{
-          background: `linear-gradient( to bottom, #000000c2 0%, #00000054 30%, #00000024 50%, #0c1921 60%, #0c1921 70%, var(--bg) 100% )
-                      , url(${
-                        "https://image.tmdb.org/t/p/w780" +
-                        Result[0].backdrop_path
-                      })`,
-        }}
-      >
+      <div className=" search-container">
         {Result?.map((item) => (
           <>
             <Link
