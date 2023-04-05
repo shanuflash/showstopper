@@ -76,53 +76,37 @@ function Search() {
           </div>
         </form>
         <div className=" search-container">
-          {Toggle !== "p" ? (
-            <>
-              {Result?.map((item) => (
-                <>
-                  <Link
-                    to={`/${item.id}` + Toggle}
-                    className="card"
-                    style={{
-                      background: `url(${
-                        "https://image.tmdb.org/t/p/w300" + item?.backdrop_path
-                      })`,
-                    }}
-                  >
-                    <div className="card-info">
-                      <div className="card-title">{item.original_title}</div>
+          {Result?.map((item) => {
+            if (Toggle === "p") {
+              var path = "https://image.tmdb.org/t/p/w185" + item?.profile_path;
+            } else {
+              var path =
+                "https://image.tmdb.org/t/p/w300" + item?.backdrop_path;
+            }
+
+            return (
+              <>
+                <Link
+                  to={`/${item.id}` + Toggle}
+                  className={Toggle === "p" ? "card people-card" : "card"}
+                  style={{
+                    background: `url(${path})`,
+                  }}
+                >
+                  <div className="card-info">
+                    <div className="card-title">
+                      {item.original_title || item.name}
+                    </div>
+                    {Toggle !== "p" && (
                       <div className="card-rating">
                         {item.vote_average} &#9733;
                       </div>
-                    </div>
-                  </Link>
-                </>
-              ))}
-            </>
-          ) : (
-            <>
-              {Result?.map((item) => (
-                <>
-                  <Link
-                    to={`/${item.id}`}
-                    className="card people-card"
-                    style={{
-                      background: `url(${
-                        "https://image.tmdb.org/t/p/w185" + item?.profile_path
-                      })`,
-                    }}
-                  >
-                    <div className="card-info">
-                      <div className="card-title">{item.original_title}</div>
-                      <div className="card-rating">
-                        {item.vote_average} &#9733;
-                      </div>
-                    </div>
-                  </Link>
-                </>
-              ))}
-            </>
-          )}
+                    )}
+                  </div>
+                </Link>
+              </>
+            );
+          })}
         </div>
       </div>
     </div>

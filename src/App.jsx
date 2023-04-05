@@ -192,14 +192,14 @@ function App() {
           index: 1,
           genre: 37,
           type: "tv",
-          title: "NetFlix Originals",
+          title: "Netflix Originals",
           handleScroll,
           setContainerRef,
         }}
       />
       <MovieRow
         {...{
-          index: 5,
+          index: 2,
           genre: 16,
           title: "Animated",
           handleScroll,
@@ -208,7 +208,7 @@ function App() {
       />
       <MovieRow
         {...{
-          index: 2,
+          index: 3,
           genre: 28,
           title: "Action",
           handleScroll,
@@ -217,7 +217,7 @@ function App() {
       />
       <MovieRow
         {...{
-          index: 6,
+          index: 4,
           genre: 35,
           title: "Comedy",
           handleScroll,
@@ -226,7 +226,7 @@ function App() {
       />
       <MovieRow
         {...{
-          index: 4,
+          index: 5,
           genre: 878,
           title: "Sci-Fi",
           handleScroll,
@@ -235,7 +235,7 @@ function App() {
       />
       <MovieRow
         {...{
-          index: 3,
+          index: 6,
           genre: 80,
           title: "Crime",
           handleScroll,
@@ -244,7 +244,7 @@ function App() {
       />
       <MovieRow
         {...{
-          index: 1,
+          index: 7,
           genre: 12,
           title: "Adventure",
           handleScroll,
@@ -253,7 +253,7 @@ function App() {
       />
       <MovieRow
         {...{
-          index: 1,
+          index: 8,
           genre: 37,
           title: "Western",
           handleScroll,
