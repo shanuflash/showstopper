@@ -278,30 +278,47 @@ input[type="number"] {
 }
 
 .popular {
-  overflow: scroll;
-  height: fit-content;
+  height: 188px;
+  overflow-x: scroll;
+  overflow-y: visible;
+  /* height: fit-content; */
   /* position: absolute; */
   /* bottom: 3rem; */
   display: flex;
+  align-items: center;
   gap: 2rem;
-  /* overflow-x: scroll;
-  overflow-y: hidden; */
-  margin-left: 3rem;
-  animation: scroll 90s linear forwards;
-  animation-delay: 3s;
-  animation-iteration-count: 2;
-  animation-direction: alternate;
-  animation-fill-mode: forwards;
-  will-change: transform;
+  /* overflow-y: hidden; */
+  /* margin-left: 3rem; */
+  padding-left: 2rem;
 }
-/* @keyframes scroll {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-85%, 0, 0);
-  }
-} */
+
+.arrow-container {
+  height: 0;
+}
+.title {
+  font-weight: 700;
+  padding: 1rem 0 0 2rem;
+}
+.arrow {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 2rem;
+  position: relative;
+  z-index: 10;
+  top: 60px;
+  background-color: var(--ascent);
+  font-weight: 700;
+}
+
+.left-arrow {
+  left: 5vw;
+}
+
+.right-arrow {
+  left: 90vw;
+}
 
 .card {
   flex-shrink: 0;
@@ -371,6 +388,7 @@ a {
   gap: 1rem;
 }
 .genre-item {
+  white-space: nowrap;
   background-color: rgba(0, 0, 0, 0.521);
   border: 1px solid white;
   padding: 0.5rem 1rem;

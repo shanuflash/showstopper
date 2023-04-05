@@ -7,6 +7,7 @@ import supabase from "./supabase";
 import { toast } from "react-toastify";
 import { useNavigate, Link, ScrollRestoration } from "react-router-dom";
 import Nav from "./components/Nav";
+import MovieRow from "./components/MovieRow";
 
 /*
 image url = https://image.tmdb.org/t/p/w500/
@@ -80,17 +81,8 @@ personCombinedCredits
 */
 
 function App() {
-  const {
-    setEmail,
-    User,
-    setUser,
-    SearchItem,
-    setSearchItem,
-    setResult,
-    isOpen,
-    handleMouseEnter,
-    handleMouseLeave,
-  } = useContext(DataContext);
+  const { User } = useContext(DataContext);
+
   const [Bg, setBg] = useState(
     "http://occ-0-2484-3662.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABZgSZPxY1IqlyGClEuxnnzKH3cwcfhdz2Qj6HAwnYK1JVzOfrHNijT-XmTnVwpsT3lVv_Q7nY9PljiAIxz4rLxvbe8hRoaShSh2x.jpg?r=18a"
   );
@@ -110,9 +102,32 @@ function App() {
     tmdb
       .moviePopular()
       .then((res) => {
-        setPopular(res);
+        setPopular(res.results.filter((a) => a.backdrop_path !== null));
+        console.log(res);
       })
       .catch(toast.error);
+
+    // tmdb
+    //   .discoverMovie({ with_genres: 16 })
+    //   .then((res) => {
+    //     setUpcoming(res);
+    //     console.log(res);
+    //   })
+    //   .catch(toast.error);
+    // tmdb
+    //   .discoverMovie({ with_genres: 12 })
+    //   .then((res) => {
+    //     setUpcoming(res);
+    //     console.log(res);
+    //   })
+    //   .catch(toast.error);
+    // tmdb
+    //   .discoverMovie({ with_genres: 28 })
+    //   .then((res) => {
+    //     setUpcoming(res);
+    //     console.log(res);
+    //   })
+    //   .catch(toast.error);
   }, []);
 
   const navigate = useNavigate();
@@ -121,16 +136,19 @@ function App() {
     if (!User) navigate("/Login");
   }, [User]);
 
-  const containerRef = useRef(null);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const containerRefs = useRef([]);
 
-  const handleScroll = (scrollOffset) => {
-    const newScrollLeft = containerRef.current.scrollLeft + scrollOffset;
-    containerRef.current.scrollTo({
+  const handleScroll = (index, scrollOffset) => {
+    const newScrollLeft =
+      containerRefs.current[index].scrollLeft + scrollOffset;
+    containerRefs.current[index].scrollTo({
       left: newScrollLeft,
       behavior: "smooth",
     });
-    setScrollLeft(newScrollLeft);
+  };
+
+  const setContainerRef = (index) => (ref) => {
+    containerRefs.current[index] = ref;
   };
 
   return (
@@ -161,30 +179,88 @@ function App() {
           </div>
         </div>
       </div>
-      <div ref={containerRef} className="popular">
-        {Popular.results?.map((movie) => (
-          <>
-            <Link
-              to={`/${movie.id}`}
-              className="card"
-              style={{
-                background: `url(${
-                  "https://image.tmdb.org/t/p/w300" + movie.backdrop_path
-                })`,
-              }}
-            >
-              <div className="card-info">
-                <div className="card-title">{movie.title}</div>
-                <div className="card-rating">{movie.vote_average} &#9733;</div>
-              </div>
-            </Link>
-          </>
-        ))}
-      </div>
-      <button onClick={() => handleScroll(-100)}>←</button>
-      <button onClick={() => handleScroll(100)}>→</button>
-
-      <div className="test1"></div>
+      <MovieRow
+        {...{
+          index: 0,
+          type: "pop",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 1,
+          genre: 37,
+          type: "tv",
+          title: "NetFlix Originals",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 5,
+          genre: 16,
+          title: "Animated",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 2,
+          genre: 28,
+          title: "Action",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 6,
+          genre: 35,
+          title: "Comedy",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 4,
+          genre: 878,
+          title: "Sci-Fi",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 3,
+          genre: 80,
+          title: "Crime",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 1,
+          genre: 12,
+          title: "Adventure",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      <MovieRow
+        {...{
+          index: 1,
+          genre: 37,
+          title: "Western",
+          handleScroll,
+          setContainerRef,
+        }}
+      />
+      {/* <div className="test1"></div> */}
     </div>
   );
 }
