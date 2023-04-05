@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import tmdb from "./tmdb";
 import "./App.css";
 import { DataContext } from "./context/DataProvider";
@@ -121,6 +121,18 @@ function App() {
     if (!User) navigate("/Login");
   }, [User]);
 
+  const containerRef = useRef(null);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleScroll = (scrollOffset) => {
+    const newScrollLeft = containerRef.current.scrollLeft + scrollOffset;
+    containerRef.current.scrollTo({
+      left: newScrollLeft,
+      behavior: "smooth",
+    });
+    setScrollLeft(newScrollLeft);
+  };
+
   return (
     <div className="App">
       <ScrollRestoration />
@@ -149,7 +161,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="popular">
+      <div ref={containerRef} className="popular">
         {Popular.results?.map((movie) => (
           <>
             <Link
@@ -169,6 +181,9 @@ function App() {
           </>
         ))}
       </div>
+      <button onClick={() => handleScroll(-100)}>←</button>
+      <button onClick={() => handleScroll(100)}>→</button>
+
       <div className="test1"></div>
     </div>
   );

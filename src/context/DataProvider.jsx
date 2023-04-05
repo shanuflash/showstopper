@@ -8,7 +8,9 @@ function DataProvider({ children }) {
   const [Name, setName] = useState(null);
   const [Phno, setPhno] = useState(null);
   const [Data, setData] = useState([]);
+  const [SearchItem, setSearchItem] = useState(null);
   const [Result, setResult] = useState([]);
+  const [Toggle, setToggle] = useState("m");
 
   const handleSession = async (e) => {
     const { data, error } = await supabase.auth.getSession();
@@ -36,8 +38,12 @@ function DataProvider({ children }) {
         setPhno,
         Data,
         setData,
+        SearchItem,
+        setSearchItem,
         Result,
         setResult,
+        Toggle,
+        setToggle,
       }}
     >
       {children}

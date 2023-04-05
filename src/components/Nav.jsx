@@ -4,12 +4,11 @@ import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
 import supabase from "../supabase";
 import { toast } from "react-toastify";
+import { FaSearch } from "react-icons/fa";
 
-function Nav() {
+function Nav({ loc }) {
   const { setUser, setEmail, setResult } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
-  const [SearchItem, setSearchItem] = useState(null);
-  const navigate = useNavigate();
 
   const handleMouseEnter = () => {
     setIsOpen(true);
@@ -28,32 +27,19 @@ function Nav() {
     setEmail(null);
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    tmdb
-      .searchMovie({ query: SearchItem })
-      .then((res) => {
-        setResult(res.results.filter((a) => a.backdrop_path !== null));
-        console.log(res.results);
-        navigate("/Search");
-      })
-      .catch(console.error);
-  };
-
   return (
     <div className="nav">
       <Link to="/" className="logo">
         ShowStopper
       </Link>
       <div className="user">
-        <form className="search" onSubmit={handleSearch}>
-          <input
-            placeholder="Search for a movie..."
-            type="text"
-            onChange={(e) => setSearchItem(e.target.value)}
-          />
-          <button type="submit" style={{ visibility: "hidden" }}></button>
-        </form>
+        {loc !== "/Search" && (
+          <Link to="/Search" className="search">
+            Search
+            <FaSearch className="search-icon" />
+          </Link>
+        )}
+
         <div
           className="user-info"
           onMouseEnter={handleMouseEnter}

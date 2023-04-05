@@ -6,15 +6,44 @@ import Nav from "./Nav";
 
 function MovieInfo() {
   const { movieid } = useParams();
+  console.log(movieid.charAt(movieid.length - 1));
   const [Movie, setMovie] = useState({});
   useEffect(() => {
-    tmdb
-      .movieInfo({ id: movieid })
-      .then((res) => {
-        console.log(res);
-        setMovie(res);
-      })
-      .catch(console.error);
+    switch (movieid.charAt(movieid.length - 1)) {
+      case "m": {
+        tmdb
+          .movieInfo({ id: movieid })
+          .then((res) => {
+            console.log(res);
+            setMovie(res);
+          })
+          .catch(console.error);
+        break;
+      }
+      case "t": {
+        tmdb
+          .tvInfo({ id: movieid })
+          .then((res) => {
+            console.log(res);
+            setMovie(res);
+          })
+          .catch(console.error);
+        break;
+      }
+      case "p": {
+        tmdb
+          .personInfo({ id: movieid })
+          .then((res) => {
+            console.log(res);
+            setMovie(res);
+          })
+          .catch(console.error);
+        break;
+      }
+
+      default:
+        break;
+    }
   }, []);
 
   return (

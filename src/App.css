@@ -11,6 +11,10 @@
   z-index: 10;
 }
 
+.content {
+  margin-top: 6rem;
+}
+
 .logo {
   font-family: "Bebas Neue", cursive;
   font-size: 3.2rem;
@@ -192,16 +196,61 @@ input[type="number"] {
   display: flex;
 }
 
+.search-icon {
+  font-size: 1.5rem;
+}
+
+.search {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .search input {
   border: none;
-  border-radius: 1rem;
-  padding: 0.5rem;
+  border-radius: 0.7rem;
+  padding: 1rem;
   background-color: rgba(143, 143, 143, 0.3);
-  width: 15rem;
+  width: 50vw;
 }
 
 .search input:focus {
-  outline: 1px solid black;
+  outline: 1px solid var(--ascent);
+}
+
+.toggle {
+  display: flex;
+}
+.toggle button {
+  display: flex;
+  padding: 0.8rem;
+  align-items: center;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0.7rem 0 0 0.7rem;
+  /* padding: 0.98rem; */
+  background-color: rgba(143, 143, 143, 0.3);
+}
+
+.toggle button[data-toggle="true"] {
+  background-color: var(--ascent);
+  color: black;
+}
+
+.toggle button:nth-child(1) {
+  border-radius: 0.7rem 0 0 0.7rem;
+}
+
+.toggle button:nth-child(2) {
+  border-radius: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.toggle button:nth-child(3) {
+  border-radius: 0 0.7rem 0.7rem 0;
 }
 
 .test {
@@ -229,6 +278,7 @@ input[type="number"] {
 }
 
 .popular {
+  overflow: scroll;
   height: fit-content;
   /* position: absolute; */
   /* bottom: 3rem; */
@@ -244,14 +294,14 @@ input[type="number"] {
   animation-fill-mode: forwards;
   will-change: transform;
 }
-@keyframes scroll {
+/* @keyframes scroll {
   0% {
     transform: translate3d(0, 0, 0);
   }
   100% {
     transform: translate3d(-85%, 0, 0);
   }
-}
+} */
 
 .card {
   flex-shrink: 0;
@@ -284,27 +334,22 @@ input[type="number"] {
   padding: 0.5rem 1.4rem;
 }
 
+.people-card {
+  height: 278px;
+  width: 185px;
+}
+
 .test1 {
   height: 100vh;
 }
 
 .search-container {
-  padding: 6rem 1rem 1rem 1rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
-  padding-top: 5.25rem;
-}
-
-.search-container::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30vh; /* adjust as needed */
-  background: linear-gradient(rgba(255, 255, 255, 0) 0%, var(--bg) 100%);
+  padding-top: 2rem;
 }
 
 a {
