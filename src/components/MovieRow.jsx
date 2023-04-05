@@ -51,6 +51,7 @@ function MovieRow({
         >
           &lt;
         </button>
+
         <button
           className="arrow right-arrow"
           onClick={() => handleScroll(index, 664)}
@@ -62,7 +63,7 @@ function MovieRow({
         {Data.map((movie) => (
           <>
             <Link
-              to={`/${movie.id}` + "m"}
+              to={`/${movie.id}` + (type == "tv" ? "t" : "m")}
               className="card"
               style={{
                 background: `url(${

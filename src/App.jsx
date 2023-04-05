@@ -86,8 +86,6 @@ function App() {
   const [Bg, setBg] = useState(
     "http://occ-0-2484-3662.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABZgSZPxY1IqlyGClEuxnnzKH3cwcfhdz2Qj6HAwnYK1JVzOfrHNijT-XmTnVwpsT3lVv_Q7nY9PljiAIxz4rLxvbe8hRoaShSh2x.jpg?r=18a"
   );
-  const [Popular, setPopular] = useState({});
-  const [Upcoming, setUpcoming] = useState({});
 
   useEffect(() => {
     tmdb
@@ -98,36 +96,6 @@ function App() {
         }
       })
       .catch(console.error);
-
-    tmdb
-      .moviePopular()
-      .then((res) => {
-        setPopular(res.results.filter((a) => a.backdrop_path !== null));
-        console.log(res);
-      })
-      .catch(toast.error);
-
-    // tmdb
-    //   .discoverMovie({ with_genres: 16 })
-    //   .then((res) => {
-    //     setUpcoming(res);
-    //     console.log(res);
-    //   })
-    //   .catch(toast.error);
-    // tmdb
-    //   .discoverMovie({ with_genres: 12 })
-    //   .then((res) => {
-    //     setUpcoming(res);
-    //     console.log(res);
-    //   })
-    //   .catch(toast.error);
-    // tmdb
-    //   .discoverMovie({ with_genres: 28 })
-    //   .then((res) => {
-    //     setUpcoming(res);
-    //     console.log(res);
-    //   })
-    //   .catch(toast.error);
   }, []);
 
   const navigate = useNavigate();
@@ -192,7 +160,7 @@ function App() {
           index: 1,
           genre: 37,
           type: "tv",
-          title: "Netflix Originals",
+          title: "ShowStopper Originals",
           handleScroll,
           setContainerRef,
         }}
