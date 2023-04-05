@@ -8,7 +8,19 @@
   top: 0;
   width: 100vw;
   padding: 0 2rem;
-  z-index: 10;
+  z-index: 100;
+  transition: 0.5s;
+}
+
+.nav-scroll {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  transition: 0.5s;
+}
+
+.nav-scroll .logo {
+  font-size: 2.5rem;
+  transition: 0.5s;
 }
 
 .content {
@@ -17,7 +29,8 @@
 
 .logo {
   font-family: "Bebas Neue", cursive;
-  font-size: 3.2rem;
+  font-size: 3rem;
+  transition: 0.5s;
 }
 
 .master {
@@ -308,12 +321,17 @@ input[type="number"] {
   position: relative;
   z-index: 10;
   top: 60px;
-  background-color: var(--ascent);
+  background-color: #00b4d834;
+  transition: 0.5s;
   font-weight: 700;
+}
+.arrow:hover {
+  background-color: #00b4d8;
+  transition: 0.5s;
 }
 
 .left-arrow {
-  left: 5vw;
+  left: 3.5vw;
 }
 
 .right-arrow {
@@ -393,7 +411,7 @@ a {
   border: 1px solid white;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  transition: 0.2s;
+  transition: 0.2s !important;
   cursor: pointer;
 }
 
@@ -402,12 +420,81 @@ a {
   transform: scale(1.1);
   transition: 0.2s;
 }
+
+.movie-card-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .movie-card {
-  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
   height: 120px;
   border-radius: 1rem;
+  background: rgba(10, 67, 255, 0.2);
+  transition: 0.7s;
+}
+
+.movie-card:hover {
+  background: rgba(10, 67, 255, 1);
+  transition: 0.7s;
+  cursor: help;
 }
 
 .movie-card[data-color="1"] {
-  background: green !important;
+  cursor: pointer;
+  background: rgba(128, 0, 0, 0.5) !important;
+  transition: 0.7s;
+}
+.movie-card[data-color="1"]:hover {
+  background: rgba(128, 0, 0, 1) !important;
+  transition: 0.7s;
+}
+.movie-info-play {
+  font-size: 5rem;
+}
+.movie-card-title {
+  text-align: center;
+  font-size: 3vw;
+  font-weight: 700;
+}
+
+.movie-card-title[data-style="capital"] {
+  text-transform: uppercase;
+}
+
+.movie-card-desc {
+  text-align: center;
+  font-weight: 200;
+}
+
+.movie-info-desc {
+  display: flex;
+  gap: 1rem;
+}
+.movie-info-title {
+  font-size: 1.5rem;
+}
+
+.movie-info-item {
+  width: 10vw;
+  display: flex;
+  flex-direction: column;
+}
+.movie-info-item-img {
+  max-width: 100%;
+  border-radius: 1rem;
+  height: 10vw;
+  flex: 0;
+}
+.movie-info-item-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.movie-info-item-desc {
+  font-weight: 200;
+  font-size: 1rem;
 }

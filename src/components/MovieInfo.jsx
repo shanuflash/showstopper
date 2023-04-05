@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 import { ScrollRestoration, useParams } from "react-router-dom";
+import { BsFillPlayFill } from "react-icons/bs";
 import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
 import Nav from "./Nav";
 
 function MovieInfo() {
   const { movieid } = useParams();
-  console.log(movieid.charAt(movieid.length - 1));
+  const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
+  const [Credit, setCredit] = useState({});
+
   useEffect(() => {
-    switch (movieid.charAt(movieid.length - 1)) {
+    switch (type) {
       case "m": {
         tmdb
           .movieInfo({ id: movieid })
           .then((res) => {
             console.log(res);
             setMovie(res);
+          })
+          .catch(console.error);
+        tmdb
+          .movieCredits({ id: movieid })
+          .then((res) => {
+            console.log(res);
+            setCredit(res);
           })
           .catch(console.error);
         break;
@@ -26,6 +36,12 @@ function MovieInfo() {
           .then((res) => {
             console.log(res);
             setMovie(res);
+          })
+          .catch(console.error);
+        tmdb
+          .tvCredits({ id: movieid })
+          .then((res) => {
+            console.log(res);
           })
           .catch(console.error);
         break;
@@ -65,8 +81,10 @@ function MovieInfo() {
         }}
       >
         <div className="featured">
-          {/* <div className="featured-icon">Featured</div> */}
-          <div className="featured-title">{Movie.original_title}</div>
+          <div className="featured-icon">
+            {type == "m" ? "Movie" : "TV Show"}
+          </div>
+          <div className="featured-title">{Movie.title}</div>
           <div className="featured-desc">{Movie.overview}</div>
           <div className="genres">
             {Movie.genres?.map((item) => (
@@ -77,14 +95,52 @@ function MovieInfo() {
           </div>
         </div>
       </div>
-      <div className="movie-card" data-color="1">
-        <div className="movie-card-info"></div>
+      <div className="movie-card-container">
+        <div className="movie-card" data-color="1">
+          <div className="movie-card-info">
+            <BsFillPlayFill className="movie-info-play" />
+          </div>
+        </div>
+        <div className="movie-card">
+          <div className="movie-card-info">
+            <div className="movie-card-title" data-style="capital">
+              {Movie.original_language}
+            </div>
+            <div className="movie-card-desc">Language</div>
+          </div>
+        </div>
+        <div className="movie-card">
+          <div className="movie-card-info">
+            <div className="movie-card-title">{Movie.release_date}</div>
+            <div className="movie-card-desc">Release</div>
+          </div>
+        </div>
+        <div className="movie-card">
+          <div className="movie-card-info">
+            <div className="movie-card-title">
+              {(Movie.runtime / 60).toFixed(1)} hrs
+            </div>
+            <div className="movie-card-desc">Runtime</div>
+          </div>
+        </div>
       </div>
-      <div className="movie-card">
-        <div className="movie-card-info"></div>
-      </div>
-      <div className="movie-card">
-        <div className="movie-card-info"></div>
+      <div className="movie-info-container">
+        <div className="movie-info-title title">Cast</div>
+        <div className="movie-info-desc">
+          {Credit.cast?.slice(0, 5).map((item) => (
+            <>
+              <div className="movie-info-item">
+                <img
+                  className="movie-info-item-img"
+                  src={"https://image.tmdb.org/t/p/w92" + item.profile_path}
+                  alt="test"
+                />
+                <div className="movie-info-item-title">{item.name}</div>
+                <div className="movie-info-item-desc">{item.character}</div>
+              </div>
+            </>
+          ))}
+        </div>
       </div>
     </div>
   );

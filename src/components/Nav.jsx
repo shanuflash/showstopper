@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
@@ -7,6 +7,25 @@ import { toast } from "react-toastify";
 import { FaSearch } from "react-icons/fa";
 
 function Nav({ loc }) {
+  const [show, handleShow] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) {
+        handleShow(true);
+      } else handleShow(false);
+    });
+    return () => {
+      window.removeEventListener("scroll", () => {
+        if (window.scrollY > 200) {
+          handleShow(true);
+        } else {
+          handleShow(false);
+        }
+      });
+    };
+  }, []);
+
   const { setUser, setEmail, setResult } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,7 +47,7 @@ function Nav({ loc }) {
   };
 
   return (
-    <div className="nav">
+    <div className={`nav ${show && "nav-scroll"}`}>
       <Link to="/" className="logo">
         ShowStopper
       </Link>
