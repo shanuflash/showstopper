@@ -7,11 +7,12 @@ import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
 import Nav from "./Nav";
 import YoutubeEmbed from "./Youtube";
+import supabase from "../supabase";
 
 function MovieInfo() {
   const { movieid } = useParams();
   const navigate = useNavigate();
-  const { User } = useContext(DataContext);
+  const { User, WatchList, setWatchList } = useContext(DataContext);
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
   const [Credit, setCredit] = useState({});
@@ -93,6 +94,20 @@ function MovieInfo() {
   // useEffect(() => {
   //   if (!User) navigate("/Login");
   // }, [User]);
+  const handleUpdate = async () => {
+    if (WatchList.length > 0) {
+      const { data, error } = await supabase
+        .from("netflix")
+        .update({ watch_list: WatchList })
+        .eq("userid", User);
+      if (error) console.log(error);
+      else console.log(data);
+    }
+  };
+
+  useEffect(() => {
+    handleUpdate();
+  }, [WatchList]);
 
   if (Loading) {
     return <div>Loading...</div>;
@@ -134,6 +149,7 @@ function MovieInfo() {
           <div className="featured-right">
             {Movie.vote_average?.toFixed(1)} &#9733;
             <UseAnimations
+              onClick={() => setWatchList((prev) => [...prev, Movie.id])}
               fillColor="white"
               strokeColor="white"
               style={{ cursor: "pointer" }}
