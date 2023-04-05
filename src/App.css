@@ -29,7 +29,7 @@
 
 .logo {
   font-family: "Bebas Neue", cursive;
-  font-size: 3rem;
+  font-size: 3.8vw;
   transition: 0.5s;
 }
 
@@ -226,7 +226,7 @@ input[type="number"] {
 }
 
 .search {
-  font-size: 1.2rem;
+  font-size: 1.5vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -418,6 +418,7 @@ a {
   gap: 1rem;
 }
 .genre-item {
+  font-size: 1.3vw;
   white-space: nowrap;
   background-color: rgba(0, 0, 0, 0.521);
   border: 1px solid white;
@@ -442,8 +443,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 280px;
-  height: 120px;
+  width: 22vw;
+  height: 9.5vw;
   border-radius: 1rem;
   background: rgba(10, 67, 255, 0.2);
   transition: 0.7s;
@@ -482,6 +483,10 @@ a {
   font-weight: 200;
 }
 
+.movie-info-container {
+  height: 100%;
+}
+
 .movie-info-desc {
   height: 100%;
   display: flex;
@@ -493,8 +498,6 @@ a {
 }
 
 .movie-info-item {
-  /* width: 10vw; */
-  height: 9vw;
   width: 6vw;
   display: flex;
   gap: 1rem;
@@ -502,8 +505,10 @@ a {
 }
 .movie-info-item-img {
   border-radius: 1rem;
-  height: 9vw;
-  width: 6vw;
+}
+
+.company-logo {
+  border-radius: 0 !important;
 }
 .movie-info-item-title {
   display: flex;

@@ -6,6 +6,7 @@ import bookmark from "react-useanimations/lib/bookmark";
 import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
 import Nav from "./Nav";
+import YoutubeEmbed from "./Youtube";
 
 function MovieInfo() {
   const { movieid } = useParams();
@@ -14,7 +15,9 @@ function MovieInfo() {
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
   const [Credit, setCredit] = useState({});
-
+  const [Similar, setSimilar] = useState({});
+  const [Video, setVideo] = useState({});
+  const [Loading, setLoading] = useState(true);
   useEffect(() => {
     switch (type) {
       case "m": {
@@ -25,6 +28,7 @@ function MovieInfo() {
             setMovie(res);
           })
           .catch(console.error);
+
         tmdb
           .movieCredits({ id: movieid })
           .then((res) => {
@@ -32,6 +36,26 @@ function MovieInfo() {
             setCredit(res);
           })
           .catch(console.error);
+
+        tmdb
+          .movieSimilar({ id: movieid })
+          .then((res) => {
+            console.log(res);
+            setSimilar(res);
+          })
+          .catch(console.error);
+        tmdb
+          .movieVideos({ id: movieid })
+          .then((res) => {
+            setVideo(
+              res.results.find(
+                (item) => item.type === "Trailer" && item.official === true
+              )
+            );
+          })
+          .catch(console.error);
+
+        setLoading(false);
         break;
       }
       case "t": {
@@ -69,6 +93,10 @@ function MovieInfo() {
   // useEffect(() => {
   //   if (!User) navigate("/Login");
   // }, [User]);
+
+  if (Loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -162,15 +190,15 @@ function MovieInfo() {
         </div>
       </div>
       <div className="movie-info-container">
-        <div className="movie-info-title title">Featured Cast:</div>
+        <div className="movie-info-title title">Production Companies:</div>
         <div className="movie-info-desc">
-          {Credit.cast?.slice(0, 5).map((item) => (
+          {Movie.production_companies?.slice(0, 5).map((item) => (
             <>
               <div className="movie-info-item">
                 <img
-                  className="movie-info-item-img"
-                  src={"https://image.tmdb.org/t/p/w92" + item.profile_path}
-                  alt="test"
+                  className="movie-info-item-img company-logo"
+                  src={"https://image.tmdb.org/t/p/w92" + item.logo_path}
+                  alt="not-found"
                 />
                 <div className="movie-info-item-title">{item.name}</div>
               </div>
@@ -178,6 +206,24 @@ function MovieInfo() {
           ))}
         </div>
       </div>
+      <div className="movie-info-container">
+        <div className="movie-info-title title">Similar Movies:</div>
+        <div className="movie-info-desc">
+          {Similar.results?.slice(0, 8).map((item) => (
+            <>
+              <div className="movie-info-item">
+                <img
+                  className="movie-info-item-img company-logo"
+                  src={"https://image.tmdb.org/t/p/w92" + item.poster_path}
+                  alt="logo-not-found"
+                />
+                <div className="movie-info-item-title">{item.title}</div>
+              </div>
+            </>
+          ))}
+        </div>
+      </div>
+      <YoutubeEmbed embedId={Video.key} />
     </div>
   );
 }
