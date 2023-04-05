@@ -136,14 +136,16 @@ function App() {
         }}
       >
         <div className="featured">
-          <div className="featured-icon">Featured</div>
-          <div className="featured-title">John Wick: Chapter 4</div>
-          <div className="featured-desc">
-            With the price on his head ever increasing, John Wick uncovers a
-            path to defeating The High Table. But before he can earn his
-            freedom, Wick must face off against a new enemy with powerful
-            alliances across the globe and forces that turn old friends into
-            foes.
+          <div className="featured-left">
+            <div className="featured-icon">Featured</div>
+            <div className="featured-title">John Wick: Chapter 4</div>
+            <div className="featured-desc">
+              With the price on his head ever increasing, John Wick uncovers a
+              path to defeating The High Table. But before he can earn his
+              freedom, Wick must face off against a new enemy with powerful
+              alliances across the globe and forces that turn old friends into
+              foes.
+            </div>
           </div>
         </div>
       </div>

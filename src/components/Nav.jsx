@@ -11,13 +11,13 @@ function Nav({ loc }) {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 200) {
+      if (window.scrollY > 100) {
         handleShow(true);
       } else handleShow(false);
     });
     return () => {
       window.removeEventListener("scroll", () => {
-        if (window.scrollY > 200) {
+        if (window.scrollY > 100) {
           handleShow(true);
         } else {
           handleShow(false);

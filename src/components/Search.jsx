@@ -1,6 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../context/DataProvider";
-import { Link, ScrollRestoration, useLocation } from "react-router-dom";
+import {
+  Link,
+  ScrollRestoration,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { BiMoviePlay, BiTv } from "react-icons/bi";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { ImTv } from "react-icons/im";
@@ -9,10 +14,22 @@ import Nav from "./Nav";
 
 function Search() {
   const location = useLocation();
+  const navigate = useNavigate();
   const currentUrl = location.pathname;
 
-  const { Result, setResult, SearchItem, setSearchItem, Toggle, setToggle } =
-    useContext(DataContext);
+  const {
+    Result,
+    setResult,
+    SearchItem,
+    setSearchItem,
+    Toggle,
+    setToggle,
+    User,
+  } = useContext(DataContext);
+
+  useEffect(() => {
+    if (!User) navigate("/Login");
+  }, [User]);
 
   const handleSearch = (e) => {
     e.preventDefault();
