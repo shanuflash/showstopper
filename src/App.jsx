@@ -18,7 +18,7 @@ function App() {
 
   const [Featured, setFeatured] = useState({});
 
-  const bgarray = ["603692m", "677179m", "119051t"];
+  const bgarray = ["603692m", "502356m", "119051t", "100088t"];
   useEffect(() => {
     for (let i = 0; i < bgarray.length; i++) {
       const method =
@@ -31,7 +31,6 @@ function App() {
           tmdb[method]({ id: bgarray[i] })
             .then((res) => {
               if (res.backdrop_path) {
-                // console.log(res.backdrop_path);
                 setFeatured(res);
                 setBg("https://image.tmdb.org/t/p/w1280" + res.backdrop_path);
               }
