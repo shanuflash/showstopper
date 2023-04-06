@@ -8,20 +8,25 @@ function Activity() {
   const { User, WatchList, History } = useContext(DataContext);
   const [HistoryData, setHistoryData] = useState([]);
   const [WatchListData, setWatchListData] = useState([]);
-  // console.log(History[0]);
   useEffect(() => {
     History.map((movie) => {
-      tmdb
-        .movieInfo({ id: movie })
+      const method =
+        movie.charAt(movie.length - 1) === "m" ? "movieInfo" : "tvInfo";
+
+      tmdb[method]({ id: movie })
         .then((res) => {
+          res.id += movie.charAt(movie.length - 1);
           setHistoryData((prev) => [...prev, res]);
         })
         .catch(console.error);
     });
+
     WatchList.map((movie) => {
-      tmdb
-        .movieInfo({ id: movie })
+      const method =
+        movie.charAt(movie.length - 1) === "m" ? "movieInfo" : "tvInfo";
+      tmdb[method]({ id: movie })
         .then((res) => {
+          res.id += movie.charAt(movie.length - 1);
           setWatchListData((prev) => [...prev, res]);
         })
         .catch(console.error);
@@ -41,7 +46,7 @@ function Activity() {
             {WatchListData.map((movie) => (
               <>
                 <Link
-                  to={`/${movie.id}` + "m"}
+                  to={`/${movie.id}`}
                   className="card"
                   style={{
                     background: `url(${
@@ -50,7 +55,9 @@ function Activity() {
                   }}
                 >
                   <div className="card-info">
-                    <div className="card-title">{movie.title}</div>
+                    <div className="card-title">
+                      {movie.title || movie.name}
+                    </div>
                     <div className="card-rating">
                       {movie.vote_average} &#9733;
                     </div>
@@ -66,7 +73,7 @@ function Activity() {
             {HistoryData.map((movie) => (
               <>
                 <Link
-                  to={`/${movie.id}` + "m"}
+                  to={`/${movie.id}`}
                   className="card"
                   style={{
                     background: `url(${

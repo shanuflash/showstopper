@@ -38,6 +38,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   /* padding-bottom: 2rem; */
 }
 
@@ -60,15 +62,18 @@
 }
 .featured-icon {
   font-size: 0.8rem;
+  font-size: 1.1vw;
   font-weight: 800;
 }
 .featured-title {
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
+  font-size: 2.3vw;
   font-weight: 800;
 }
 
 .featured-desc {
   font-weight: 500;
+  font-size: 1.27vw;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -303,7 +308,9 @@ input[type="number"] {
 }
 
 .popular {
-  height: 188px;
+  /* height: 188px; */
+  height: 15.07vw;
+
   overflow-x: scroll;
   overflow-y: visible;
   /* height: fit-content; */
@@ -351,9 +358,13 @@ input[type="number"] {
 }
 
 .card {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   flex-shrink: 0;
   width: 300px;
+  width: 23.7vw;
   height: 169px;
+  height: 13.4vw;
   border-radius: 2rem;
   /* padding: 1rem; */
   font-weight: 700;

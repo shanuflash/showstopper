@@ -87,15 +87,31 @@ function App() {
     "https://image.tmdb.org/t/p/w1280/i8dshLvq4LE3s0v8PrkDdUyb1ae.jpg"
   );
 
+  const [Featured, setFeatured] = useState({});
+
+  const bgarray = ["603692m", "677179m", "119051t"];
   useEffect(() => {
-    tmdb
-      .movieInfo({ id: "603692" })
-      .then((res) => {
-        if (res.backdrop_path) {
-          setBg("https://image.tmdb.org/t/p/w1280" + res.backdrop_path);
-        }
-      })
-      .catch(console.error);
+    for (let i = 0; i < bgarray.length; i++) {
+      const method =
+        bgarray[i].charAt(bgarray[i].length - 1) === "m"
+          ? "movieInfo"
+          : "tvInfo";
+
+      setTimeout(
+        () => {
+          tmdb[method]({ id: bgarray[i] })
+            .then((res) => {
+              if (res.backdrop_path) {
+                console.log(res.backdrop_path);
+                setFeatured(res);
+                setBg("https://image.tmdb.org/t/p/w1280" + res.backdrop_path);
+              }
+            })
+            .catch(console.error);
+        },
+        i === 0 ? 0 : 10000 * i
+      );
+    }
   }, []);
 
   const navigate = useNavigate();
@@ -119,6 +135,8 @@ function App() {
     containerRefs.current[index] = ref;
   };
 
+  useEffect(() => {}, []);
+
   return (
     <div className="App">
       <ScrollRestoration />
@@ -138,14 +156,10 @@ function App() {
         <div className="featured">
           <div className="featured-left">
             <div className="featured-icon">Featured</div>
-            <div className="featured-title">John Wick: Chapter 4</div>
-            <div className="featured-desc">
-              With the price on his head ever increasing, John Wick uncovers a
-              path to defeating The High Table. But before he can earn his
-              freedom, Wick must face off against a new enemy with powerful
-              alliances across the globe and forces that turn old friends into
-              foes.
+            <div className="featured-title">
+              {Featured.title || Featured.name}
             </div>
+            <div className="featured-desc">{Featured.overview}</div>
           </div>
         </div>
       </div>

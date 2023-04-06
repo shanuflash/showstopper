@@ -191,7 +191,7 @@ function MovieInfo() {
           <div className="featured-right">
             {Movie.vote_average?.toFixed(1)} &#9733;
             <UseAnimations
-              onClick={() => handleWatchList(Movie.id)}
+              onClick={() => handleWatchList(Movie.id + type)}
               reverse={WatchList?.includes(Movie?.id?.toString())}
               fillColor="white"
               strokeColor="white"
@@ -206,7 +206,7 @@ function MovieInfo() {
         <div
           className="movie-card"
           data-color="1"
-          onClick={() => handleReveal(Movie.id)}
+          onClick={() => handleReveal(Movie.id + type)}
         >
           <div className="movie-card-info">
             <BsFillPlayFill className="movie-info-play" />

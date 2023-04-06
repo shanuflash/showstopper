@@ -34,38 +34,18 @@ function Search() {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log(Toggle);
-    switch (Toggle) {
-      case "m": {
-        tmdb
-          .searchMovie({ query: SearchItem })
-          .then((res) => {
-            setResult(res.results.filter((a) => a.backdrop_path !== null));
-            console.log(res.results);
-          })
-          .catch(console.error);
-        break;
-      }
-      case "t": {
-        tmdb
-          .searchTv({ query: SearchItem })
-          .then((res) => {
-            setResult(res.results.filter((a) => a.backdrop_path !== null));
-            console.log(res.results);
-          })
-          .catch(console.error);
-        break;
-      }
-      case "p": {
-        tmdb
-          .searchPerson({ query: SearchItem })
-          .then((res) => {
-            setResult(res.results.filter((a) => a.profile_path !== null));
-            console.log(res.results);
-          })
-          .catch(console.error);
-        break;
-      }
-    }
+    const method =
+      Toggle === "m"
+        ? "searchMovie"
+        : Toggle === "t"
+        ? "searchTv"
+        : "searchPerson";
+    const check = Toggle === "p" ? "profile_path" : "backdrop_path";
+    tmdb[method]({ query: SearchItem })
+      .then((res) => {
+        setResult(res.results.filter((a) => a[check] !== null));
+      })
+      .catch(console.error);
   };
   return (
     <div className="App">
