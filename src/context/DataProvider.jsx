@@ -9,6 +9,7 @@ function DataProvider({ children }) {
   const [Phno, setPhno] = useState(null);
   const [Data, setData] = useState([]);
   const [WatchList, setWatchList] = useState([]);
+  const [History, setHistory] = useState([]);
   const [SearchItem, setSearchItem] = useState(null);
   const [Result, setResult] = useState([]);
   const [Toggle, setToggle] = useState("m");
@@ -25,10 +26,13 @@ function DataProvider({ children }) {
   const handleData = async (e) => {
     const { data, error } = await supabase
       .from("netflix")
-      .select("watch_list")
+      .select("watch_list,history")
       .eq("userid", User);
     if (error) console.log(error);
-    else setWatchList(data[0].watch_list);
+    else {
+      setWatchList(data[0].watch_list);
+      setHistory(data[0].history);
+    }
   };
 
   useEffect(() => {
@@ -60,6 +64,8 @@ function DataProvider({ children }) {
         setToggle,
         WatchList,
         setWatchList,
+        History,
+        setHistory,
       }}
     >
       {children}

@@ -19,7 +19,7 @@
 }
 
 .nav-scroll .logo {
-  font-size: 2.5rem;
+  font-size: 3vw;
   transition: 0.5s;
 }
 
@@ -625,4 +625,30 @@ a {
   border: none;
   border-radius: 1rem;
   font-weight: 600;
+}
+
+.activity {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-header {
+  padding-top: 6vw;
+  font-size: 2.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35vh;
+  width: 100vw;
+  background: linear-gradient(
+      to bottom,
+      #000000c2 0%,
+      #00000013 30%,
+      #00000000 50%,
+      #0c192133 60%,
+      #0c192169 70%,
+      var(--bg) 100%
+    ),
+    url("./assets/root_bg.jpg");
 }

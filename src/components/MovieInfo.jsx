@@ -12,7 +12,8 @@ import supabase from "../supabase";
 function MovieInfo() {
   const { movieid } = useParams();
   const navigate = useNavigate();
-  const { User, WatchList, setWatchList } = useContext(DataContext);
+  const { User, WatchList, setWatchList, History, setHistory } =
+    useContext(DataContext);
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
   const [Credit, setCredit] = useState({});
@@ -113,16 +114,16 @@ function MovieInfo() {
   };
 
   const handleUpdate = async () => {
-    if (WatchList.length > 0) {
+    if (WatchList.length > 0 || History.length > 0) {
       const { data, error } = await supabase
         .from("netflix")
-        .update({ watch_list: WatchList })
+        .update({ history: History, watch_list: WatchList })
         .eq("userid", User);
 
       if (!data) {
         const { error } = await supabase
           .from("netflix")
-          .insert({ userid: User, history: [], watch_list: WatchList });
+          .insert({ userid: User, history: History, watch_list: WatchList });
         if (error) console.log(error);
         else console.log(data);
       }
@@ -131,11 +132,14 @@ function MovieInfo() {
 
   useEffect(() => {
     handleUpdate();
-  }, [WatchList]);
+  }, [WatchList, History]);
 
   const [revealed, setRevealed] = useState(false);
 
-  const handleReveal = () => {
+  const handleReveal = (movieid) => {
+    if (!History.includes(movieid.toString())) {
+      setHistory([...History, movieid.toString()]);
+    }
     if (!revealed) window.scrollTo({ top: 500, behavior: "smooth" });
     setRevealed(!revealed);
   };
@@ -199,7 +203,11 @@ function MovieInfo() {
         </div>
       </div>
       <div className="movie-card-container">
-        <div className="movie-card" data-color="1" onClick={handleReveal}>
+        <div
+          className="movie-card"
+          data-color="1"
+          onClick={() => handleReveal(Movie.id)}
+        >
           <div className="movie-card-info">
             <BsFillPlayFill className="movie-info-play" />
           </div>

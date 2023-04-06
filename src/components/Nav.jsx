@@ -81,6 +81,9 @@ function Nav({ loc }) {
             <Link to="/Account" className="menu-item">
               Account
             </Link>
+            <Link to="/Activity" className="menu-item">
+              Activity
+            </Link>
             <div className="menu-item" onClick={handleLogout}>
               Logout
             </div>

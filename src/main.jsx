@@ -9,12 +9,15 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Search from "./components/Search";
 import Account from "./components/Account";
+import Activity from "./components/Activity";
+import MovieInfo from "./components/MovieInfo";
+import DataProvider from "./context/DataProvider";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DataProvider from "./context/DataProvider";
-import MovieInfo from "./components/MovieInfo";
+
+
 
 const router = createBrowserRouter([
   {
@@ -36,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/Account",
     element: <Account />,
+  },
+  {
+    path: "/Activity",
+    element: <Activity />,
   },
   {
     path: "/:movieid",
