@@ -528,3 +528,21 @@ a {
   font-weight: 200;
   font-size: 1rem;
 }
+
+.video-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+  overflow: hidden;
+}
+
+.video {
+  margin-top: 3rem;
+}
+
+.revealed {
+  max-height: 500px;
+  transition: max-height 0.4s ease;
+}

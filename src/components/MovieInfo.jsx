@@ -16,7 +16,7 @@ function MovieInfo() {
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
   const [Credit, setCredit] = useState({});
-  const [Similar, setSimilar] = useState({});
+  const [Similar, setSimilar] = useState([]);
   const [Video, setVideo] = useState({});
   const [Loading, setLoading] = useState(true);
   useEffect(() => {
@@ -25,7 +25,6 @@ function MovieInfo() {
         tmdb
           .movieInfo({ id: movieid })
           .then((res) => {
-            console.log(res);
             setMovie(res);
           })
           .catch(console.error);
@@ -33,7 +32,6 @@ function MovieInfo() {
         tmdb
           .movieCredits({ id: movieid })
           .then((res) => {
-            console.log(res);
             setCredit(res);
           })
           .catch(console.error);
@@ -41,8 +39,7 @@ function MovieInfo() {
         tmdb
           .movieSimilar({ id: movieid })
           .then((res) => {
-            console.log(res);
-            setSimilar(res);
+            setSimilar(res.results.filter((a) => a.poster_path !== null));
           })
           .catch(console.error);
         tmdb
@@ -63,16 +60,32 @@ function MovieInfo() {
         tmdb
           .tvInfo({ id: movieid })
           .then((res) => {
-            console.log(res);
             setMovie(res);
+            console.log(res);
           })
           .catch(console.error);
+
         tmdb
           .tvCredits({ id: movieid })
           .then((res) => {
-            console.log(res);
+            setCredit(res);
           })
           .catch(console.error);
+
+        tmdb
+          .tvSimilar({ id: movieid })
+          .then((res) => {
+            setSimilar(res.results.filter((a) => a.poster_path !== null));
+          })
+          .catch(console.error);
+        tmdb
+          .tvVideos({ id: movieid })
+          .then((res) => {
+            setVideo(res.results.find((item) => item.type === "Trailer"));
+          })
+          .catch(console.error);
+
+        setLoading(false);
         break;
       }
       case "p": {
@@ -91,9 +104,6 @@ function MovieInfo() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (!User) navigate("/Login");
-  // }, [User]);
   const handleUpdate = async () => {
     if (WatchList.length > 0) {
       const { data, error } = await supabase
@@ -108,6 +118,12 @@ function MovieInfo() {
   useEffect(() => {
     handleUpdate();
   }, [WatchList]);
+
+  const [revealed, setRevealed] = useState(false);
+
+  const handleReveal = () => {
+    setRevealed(!revealed);
+  };
 
   if (Loading) {
     return <div>Loading...</div>;
@@ -136,7 +152,9 @@ function MovieInfo() {
             <div className="featured-icon">
               {type == "m" ? "Movie" : "TV Show"}
             </div>
-            <div className="featured-title">{Movie.title}</div>
+            <div className="featured-title">
+              {type == "m" ? Movie.title : Movie.name}
+            </div>
             <div className="featured-desc">{Movie.overview}</div>
             <div className="genres">
               {Movie.genres?.map((item) => (
@@ -160,7 +178,7 @@ function MovieInfo() {
         </div>
       </div>
       <div className="movie-card-container">
-        <div className="movie-card" data-color="1">
+        <div className="movie-card" data-color="1" onClick={handleReveal}>
           <div className="movie-card-info">
             <BsFillPlayFill className="movie-info-play" />
           </div>
@@ -175,30 +193,52 @@ function MovieInfo() {
         </div>
         <div className="movie-card">
           <div className="movie-card-info">
-            <div className="movie-card-title">{Movie.release_date}</div>
+            <div className="movie-card-title">
+              {type == "m" ? Movie.release_date : Movie.first_air_date}
+            </div>
             <div className="movie-card-desc">Release</div>
           </div>
         </div>
         <div className="movie-card">
-          <div className="movie-card-info">
-            <div className="movie-card-title">
-              {(Movie.runtime / 60)?.toFixed(1)} hrs
+          {type == "m" ? (
+            <div className="movie-card-info">
+              <div className="movie-card-title">
+                {(Movie.runtime / 60)?.toFixed(1)} hrs
+              </div>
+              <div className="movie-card-desc">Runtime</div>
             </div>
-            <div className="movie-card-desc">Runtime</div>
-          </div>
+          ) : (
+            <div className="movie-card-info">
+              <div className="movie-card-title">
+                S{Movie?.last_episode_to_air?.episode_number} E
+                {Movie?.last_episode_to_air?.season_number}
+              </div>
+              <div className="movie-card-desc">Latest Episode</div>
+            </div>
+          )}
         </div>
       </div>
+      <div className={`video-container ${revealed && "revealed"}`}>
+        <YoutubeEmbed embedId={Video.key} />
+      </div>
+
       <div className="movie-info-container">
         <div className="movie-info-title title">Featured Cast:</div>
         <div className="movie-info-desc">
           {Credit.cast?.slice(0, 5).map((item) => (
             <>
               <div className="movie-info-item">
-                <img
-                  className="movie-info-item-img"
-                  src={"https://image.tmdb.org/t/p/w92" + item.profile_path}
-                  alt="test"
-                />
+                {item.profile_path ? (
+                  <img
+                    className="movie-info-item-img"
+                    src={"https://image.tmdb.org/t/p/w92" + item.profile_path}
+                    alt="test"
+                  />
+                ) : (
+                  <div className="notfound" style={{ textAlign: "center" }}>
+                    profile not found
+                  </div>
+                )}
                 <div className="movie-info-item-title">{item.name}</div>
               </div>
             </>
@@ -211,11 +251,17 @@ function MovieInfo() {
           {Movie.production_companies?.slice(0, 5).map((item) => (
             <>
               <div className="movie-info-item">
-                <img
-                  className="movie-info-item-img company-logo"
-                  src={"https://image.tmdb.org/t/p/w92" + item.logo_path}
-                  alt="not-found"
-                />
+                {item.logo_path ? (
+                  <img
+                    className="movie-info-item-img company-logo"
+                    src={"https://image.tmdb.org/t/p/w92" + item.logo_path}
+                    alt="not-found"
+                  />
+                ) : (
+                  <div className="notfound" style={{ textAlign: "center" }}>
+                    logo not found
+                  </div>
+                )}
                 <div className="movie-info-item-title">{item.name}</div>
               </div>
             </>
@@ -225,7 +271,7 @@ function MovieInfo() {
       <div className="movie-info-container">
         <div className="movie-info-title title">Similar Movies:</div>
         <div className="movie-info-desc">
-          {Similar.results?.slice(0, 8).map((item) => (
+          {Similar?.slice(0, 8).map((item) => (
             <>
               <div className="movie-info-item">
                 <img
@@ -239,7 +285,6 @@ function MovieInfo() {
           ))}
         </div>
       </div>
-      <YoutubeEmbed embedId={Video.key} />
     </div>
   );
 }
