@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import Nav from "./Nav";
 import { DataContext } from "../context/DataProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import tmdb from "../tmdb";
 
 function Activity() {
-  const { User, WatchList, History } = useContext(DataContext);
+  const { User, WatchList, History, Session } = useContext(DataContext);
   const [HistoryData, setHistoryData] = useState([]);
   const [WatchListData, setWatchListData] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     History.map((movie) => {
       const method =
@@ -32,6 +33,12 @@ function Activity() {
         .catch(console.error);
     });
   }, [History, WatchList]);
+
+  useEffect(() => {
+    if (Session) {
+      if (User === null) navigate("/Login");
+    }
+  }, [User]);
 
   return (
     <div>

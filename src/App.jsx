@@ -81,7 +81,7 @@ personCombinedCredits
 */
 
 function App() {
-  const { User } = useContext(DataContext);
+  const { User, Session } = useContext(DataContext);
 
   const [Bg, setBg] = useState(
     "https://image.tmdb.org/t/p/w1280/i8dshLvq4LE3s0v8PrkDdUyb1ae.jpg"
@@ -117,7 +117,9 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!User) navigate("/Login");
+    if (Session) {
+      if (User === null) navigate("/Login");
+    }
   }, [User]);
 
   const containerRefs = useRef([]);
@@ -134,8 +136,6 @@ function App() {
   const setContainerRef = (index) => (ref) => {
     containerRefs.current[index] = ref;
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div className="App">

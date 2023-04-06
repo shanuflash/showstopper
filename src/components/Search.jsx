@@ -25,10 +25,13 @@ function Search() {
     Toggle,
     setToggle,
     User,
+    Session,
   } = useContext(DataContext);
 
   useEffect(() => {
-    if (!User) navigate("/Login");
+    if (Session) {
+      if (User === null) navigate("/Login");
+    }
   }, [User]);
 
   const handleSearch = (e) => {

@@ -13,13 +13,14 @@ function DataProvider({ children }) {
   const [SearchItem, setSearchItem] = useState(null);
   const [Result, setResult] = useState([]);
   const [Toggle, setToggle] = useState("m");
+  const [Session, setSession] = useState(false);
 
   const handleSession = async (e) => {
     const { data, error } = await supabase.auth.getSession();
     if (error) toast.error(error.message);
     else {
       setUser(data.session.user.id);
-      setEmail(data.session.user.email);
+      setSession(true);
     }
   };
 
@@ -66,6 +67,8 @@ function DataProvider({ children }) {
         setWatchList,
         History,
         setHistory,
+        Session,
+        setSession,
       }}
     >
       {children}

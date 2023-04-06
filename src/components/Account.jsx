@@ -4,7 +4,7 @@ import supabase from "../supabase";
 import { DataContext } from "../context/DataProvider";
 
 function Acount() {
-  const { User, Email, setEmail, Phno, setPhno, Name, setName } =
+  const { User, Email, setEmail, Phno, setPhno, Name, setName, Session } =
     useContext(DataContext);
   const [UserData, setUserData] = useState({});
   const [NewPass, setNewPass] = useState(null);
@@ -30,6 +30,12 @@ function Acount() {
     if (error) console.log(error);
     else console.log(data, "Password updated successfully");
   };
+
+  useEffect(() => {
+    if (Session) {
+      if (User === null) navigate("/Login");
+    }
+  }, [User]);
 
   useEffect(() => {
     handleUserData();

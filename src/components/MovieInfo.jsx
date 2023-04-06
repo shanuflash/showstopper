@@ -12,7 +12,7 @@ import supabase from "../supabase";
 function MovieInfo() {
   const { movieid } = useParams();
   const navigate = useNavigate();
-  const { User, WatchList, setWatchList, History, setHistory } =
+  const { User, WatchList, setWatchList, History, setHistory, Session } =
     useContext(DataContext);
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
@@ -129,6 +129,12 @@ function MovieInfo() {
       }
     }
   };
+
+  useEffect(() => {
+    if (Session) {
+      if (User === null) navigate("/Login");
+    }
+  }, [User]);
 
   useEffect(() => {
     handleUpdate();
