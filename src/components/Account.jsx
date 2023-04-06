@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import Nav from "./Nav";
 import supabase from "../supabase";
 import { DataContext } from "../context/DataProvider";
+import { useNavigate } from "react-router-dom";
 
 function Acount() {
-  const { User, Email, setEmail, Phno, setPhno, Name, setName, Session } =
+  const { User, Email, setEmail, Phno, setPhno, Name, setName, SessionCheck } =
     useContext(DataContext);
   const [UserData, setUserData] = useState({});
   const [NewPass, setNewPass] = useState(null);
+  const navigate = useNavigate();
 
   const avatarUrl = `https://ui-avatars.com/api/?name=${Name}&background=random&color=fff&rounded=true&size=150`;
 
@@ -32,14 +34,16 @@ function Acount() {
   };
 
   useEffect(() => {
-    if (Session) {
-      if (User === null) navigate("/Login");
-    }
-  }, [User]);
-
-  useEffect(() => {
     handleUserData();
   }, []);
+
+  useEffect(() => {
+    if (SessionCheck) {
+      if (!User) {
+        navigate("/Login");
+      }
+    }
+  }, [SessionCheck]);
 
   return (
     <div>

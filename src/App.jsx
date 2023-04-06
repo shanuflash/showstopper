@@ -9,79 +9,8 @@ import { useNavigate, Link, ScrollRestoration } from "react-router-dom";
 import Nav from "./components/Nav";
 import MovieRow from "./components/MovieRow";
 
-/*
-image url = https://image.tmdb.org/t/p/w500/
-
-searchMovie
-searchPerson
-searchTv
- 
-discoverMovie
-movieTopRated
-discoverTv
-tvTopRated
-
-movieInfo
-movieImages
-movieKeywords
-movieReleaseDates (iso_3166_1: "IN")
-movieVideos
-movieRecommendations
-movieSimilar
-movieReviews
-
-tvInfo
-tvImages
-tvKeywords
-tvVideos
-tvRecommendations
-tvSimilar
-tvReviews
-
-personInfo
-personImages
-personCombinedCredits
-
-"backdrop_sizes": [
-  "w300",
-  "w780",
-  "w1280",
-  "original"
-],
-"logo_sizes": [
-  "w45",
-  "w92",
-  "w154",
-  "w185",
-  "w300",
-  "w500",
-  "original"
-],
-"poster_sizes": [
-  "w92",
-  "w154",
-  "w185",
-  "w342",
-  "w500",
-  "w780",
-  "original"
-],
-"profile_sizes": [
-  "w45",
-  "w185",
-  "h632",
-  "original"
-],
-"still_sizes": [
-  "w92",
-  "w185",
-  "w300",
-  "original"
-]
-*/
-
 function App() {
-  const { User, Session } = useContext(DataContext);
+  const { User, SessionCheck } = useContext(DataContext);
 
   const [Bg, setBg] = useState(
     "https://image.tmdb.org/t/p/w1280/i8dshLvq4LE3s0v8PrkDdUyb1ae.jpg"
@@ -102,7 +31,7 @@ function App() {
           tmdb[method]({ id: bgarray[i] })
             .then((res) => {
               if (res.backdrop_path) {
-                console.log(res.backdrop_path);
+                // console.log(res.backdrop_path);
                 setFeatured(res);
                 setBg("https://image.tmdb.org/t/p/w1280" + res.backdrop_path);
               }
@@ -113,14 +42,6 @@ function App() {
       );
     }
   }, []);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (Session) {
-      if (User === null) navigate("/Login");
-    }
-  }, [User]);
 
   const containerRefs = useRef([]);
 
@@ -136,6 +57,14 @@ function App() {
   const setContainerRef = (index) => (ref) => {
     containerRefs.current[index] = ref;
   };
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (SessionCheck) {
+      if (!User) {
+        navigate("/Login");
+      }
+    }
+  }, [SessionCheck, User]);
 
   return (
     <div className="App">

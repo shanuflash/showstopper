@@ -663,3 +663,9 @@ a {
     ),
     url("./assets/root_bg.jpg");
 }
+
+.act {
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+  height: fit-content;
+}

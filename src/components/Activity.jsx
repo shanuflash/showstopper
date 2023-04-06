@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import Nav from "./Nav";
 import { DataContext } from "../context/DataProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import tmdb from "../tmdb";
 
 function Activity() {
-  const { User, WatchList, History, Session } = useContext(DataContext);
+  const { User, WatchList, History, SessionCheck } = useContext(DataContext);
   const [HistoryData, setHistoryData] = useState([]);
   const [WatchListData, setWatchListData] = useState([]);
   const navigate = useNavigate();
@@ -35,10 +35,12 @@ function Activity() {
   }, [History, WatchList]);
 
   useEffect(() => {
-    if (Session) {
-      if (User === null) navigate("/Login");
+    if (SessionCheck) {
+      if (!User) {
+        navigate("/Login");
+      }
     }
-  }, [User]);
+  }, [SessionCheck]);
 
   return (
     <div>
@@ -47,9 +49,10 @@ function Activity() {
         <div className="activity-header">
           <div>Your Activity</div>
         </div>
+
         <div className="activity-body">
           <div className="title">Watch List</div>
-          <div className="popular">
+          <div className="popular act">
             {WatchListData.map((movie) => (
               <>
                 <Link
@@ -74,9 +77,10 @@ function Activity() {
             ))}
           </div>
         </div>
+
         <div className="activity-body">
           <div className="title">History</div>
-          <div className="popular">
+          <div className="popular act">
             {HistoryData.map((movie) => (
               <>
                 <Link

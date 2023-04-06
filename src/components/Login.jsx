@@ -17,10 +17,10 @@ function Login() {
     });
     if (error) toast.error(error.message);
     else {
-      toast.info("Successfully logged in!");
       setUser(data.user.id);
+      setSession(true);
       setPassword(null);
-      navigate("/");
+      toast.info("Successfully logged in!");
     }
   };
 

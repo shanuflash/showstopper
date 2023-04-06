@@ -13,18 +13,23 @@ function DataProvider({ children }) {
   const [SearchItem, setSearchItem] = useState(null);
   const [Result, setResult] = useState([]);
   const [Toggle, setToggle] = useState("m");
-  const [Session, setSession] = useState(false);
+  const [SessionCheck, setSessionCheck] = useState(false);
 
-  const handleSession = async (e) => {
+  const handleSession = async () => {
+    console.log("Session");
     const { data, error } = await supabase.auth.getSession();
-    if (error) toast.error(error.message);
-    else {
-      setUser(data.session.user.id);
-      setSession(true);
+    if (data) {
+      try {
+        setUser(data.session.user.id);
+        setSessionCheck(true);
+      } catch (error) {
+        setSessionCheck(true);
+      }
     }
   };
 
-  const handleData = async (e) => {
+  const handleData = async () => {
+    console.log("Data");
     const { data, error } = await supabase
       .from("netflix")
       .select("watch_list,history")
@@ -41,7 +46,7 @@ function DataProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    handleData();
+    if (User) handleData();
   }, [User]);
 
   return (
@@ -67,8 +72,8 @@ function DataProvider({ children }) {
         setWatchList,
         History,
         setHistory,
-        Session,
-        setSession,
+        SessionCheck,
+        setSessionCheck,
       }}
     >
       {children}

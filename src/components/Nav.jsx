@@ -27,7 +27,7 @@ function Nav({ loc }) {
     };
   }, []);
 
-  const { setUser, setEmail, setResult } = useContext(DataContext);
+  const { setUser } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMouseEnter = () => {
@@ -38,14 +38,14 @@ function Nav({ loc }) {
     setIsOpen(false);
   };
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
+  const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) toast.error(error.message);
-    else toast.info("Successfully logged out!");
-    setUser(null);
-    setEmail(null);
-    navigate("/Login");
+    else {
+      toast.info("Successfully logged out!");
+      setUser(null);
+      navigate("/");
+    }
   };
 
   return (

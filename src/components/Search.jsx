@@ -18,21 +18,15 @@ function Search() {
   const currentUrl = location.pathname;
 
   const {
+    User,
     Result,
     setResult,
     SearchItem,
     setSearchItem,
     Toggle,
     setToggle,
-    User,
-    Session,
+    SessionCheck,
   } = useContext(DataContext);
-
-  useEffect(() => {
-    if (Session) {
-      if (User === null) navigate("/Login");
-    }
-  }, [User]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -50,6 +44,15 @@ function Search() {
       })
       .catch(console.error);
   };
+
+  useEffect(() => {
+    if (SessionCheck) {
+      if (!User) {
+        navigate("/Login");
+      }
+    }
+  }, [SessionCheck]);
+
   return (
     <div className="App">
       <ScrollRestoration />

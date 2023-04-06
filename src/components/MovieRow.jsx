@@ -35,7 +35,7 @@ function MovieRow({
         .discoverTv({ with_networks: 213 })
         .then((res) => {
           setData(res.results.filter((a) => a.backdrop_path !== null));
-          console.log(res.results.filter((a) => a.backdrop_path !== null));
+          // console.log(res.results.filter((a) => a.backdrop_path !== null));
         })
         .catch(toast.error);
     }
