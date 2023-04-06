@@ -70,7 +70,6 @@ function MovieInfo() {
           .tvInfo({ id: movieid })
           .then((res) => {
             setMovie(res);
-            console.log(res);
           })
           .catch(console.error);
 
@@ -84,7 +83,7 @@ function MovieInfo() {
         tmdb
           .tvSimilar({ id: movieid })
           .then((res) => {
-            setSimilar(res.results.filter((a) => a.poster_path !== null));
+            setSimilar(res.results.filter((a) => a.backdrop_path !== null));
           })
           .catch(console.error);
         tmdb
@@ -101,7 +100,6 @@ function MovieInfo() {
         tmdb
           .personInfo({ id: movieid })
           .then((res) => {
-            console.log(res);
             setMovie(res);
           })
           .catch(console.error);
@@ -253,8 +251,8 @@ function MovieInfo() {
           ) : (
             <div className="movie-card-info">
               <div className="movie-card-title">
-                S{Movie?.last_episode_to_air?.episode_number} E
-                {Movie?.last_episode_to_air?.season_number}
+                S{Movie?.last_episode_to_air?.season_number} E
+                {Movie?.last_episode_to_air?.episode_number}
               </div>
               <div className="movie-card-desc">Latest Episode</div>
             </div>
