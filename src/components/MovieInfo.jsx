@@ -122,11 +122,17 @@ function MovieInfo() {
   const [revealed, setRevealed] = useState(false);
 
   const handleReveal = () => {
+    if (!revealed) window.scrollTo({ top: 500, behavior: "smooth" });
     setRevealed(!revealed);
   };
 
   if (Loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Nav />
+        <div className="loading">Loading...</div>
+      </div>
+    );
   }
 
   return (

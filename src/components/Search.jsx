@@ -104,7 +104,7 @@ function Search() {
             return (
               <>
                 <Link
-                  to={`/${item.id}` + Toggle}
+                  to={Toggle !== "p" && `/${item.id}` + Toggle}
                   className={Toggle === "p" ? "card people-card" : "card"}
                   style={{
                     background: `url(${path})`,

@@ -8,6 +8,7 @@ import { FaSearch } from "react-icons/fa";
 
 function Nav({ loc }) {
   const [show, handleShow] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -44,6 +45,7 @@ function Nav({ loc }) {
     else toast.info("Successfully logged out!");
     setUser(null);
     setEmail(null);
+    navigate("/Login");
   };
 
   return (
