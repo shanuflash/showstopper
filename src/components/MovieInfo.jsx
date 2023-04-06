@@ -1,5 +1,10 @@
 import { useEffect, useState, useContext } from "react";
-import { ScrollRestoration, useParams, useNavigate } from "react-router-dom";
+import {
+  ScrollRestoration,
+  useParams,
+  useNavigate,
+  Link,
+} from "react-router-dom";
 import { BsFillPlayFill } from "react-icons/bs";
 import UseAnimations from "react-useanimations";
 import bookmark from "react-useanimations/lib/bookmark";
@@ -8,6 +13,8 @@ import tmdb from "../tmdb";
 import Nav from "./Nav";
 import YoutubeEmbed from "./Youtube";
 import supabase from "../supabase";
+import logodefault from "../../public/logodefault.svg";
+import castdefault from "../../public/castdefault.svg";
 
 function MovieInfo() {
   const { movieid } = useParams();
@@ -40,7 +47,7 @@ function MovieInfo() {
         tmdb
           .movieSimilar({ id: movieid })
           .then((res) => {
-            setSimilar(res.results.filter((a) => a.poster_path !== null));
+            setSimilar(res.results.filter((a) => a.backdrop_path !== null));
           })
           .catch(console.error);
         tmdb
@@ -270,8 +277,12 @@ function MovieInfo() {
                     alt="test"
                   />
                 ) : (
-                  <div className="notfound" style={{ textAlign: "center" }}>
-                    profile not found
+                  <div className="  " style={{ textAlign: "center" }}>
+                    <img
+                      src={castdefault}
+                      alt=""
+                      style={{ maxWidth: "92px", maxHeight:"115px" }}
+                    />
                   </div>
                 )}
                 <div className="movie-info-item-title">{item.name}</div>
@@ -293,8 +304,12 @@ function MovieInfo() {
                     alt="not-found"
                   />
                 ) : (
-                  <div className="notfound" style={{ textAlign: "center" }}>
-                    logo not found
+                  <div className="  " style={{ textAlign: "center" }}>
+                    <img
+                      src={logodefault}
+                      alt=""
+                      style={{ maxHeight: "4rem" }}
+                    />
                   </div>
                 )}
                 <div className="movie-info-item-title">{item.name}</div>
@@ -305,17 +320,25 @@ function MovieInfo() {
       </div>
       <div className="movie-info-container">
         <div className="movie-info-title title">Similar Movies:</div>
-        <div className="movie-info-desc">
-          {Similar?.slice(0, 8).map((item) => (
+        <div className="popular">
+          {Similar?.slice(0, 3).map((item) => (
             <>
-              <div className="movie-info-item">
-                <img
-                  className="movie-info-item-img company-logo"
-                  src={"https://image.tmdb.org/t/p/w92" + item.poster_path}
-                  alt="logo-not-found"
-                />
-                <div className="movie-info-item-title">{item.title}</div>
-              </div>
+              <Link
+                to={`/${item.id}` + (type == "tv" ? "t" : "m")}
+                className="card"
+                style={{
+                  background: `url(${
+                    "https://image.tmdb.org/t/p/w300" + item.backdrop_path
+                  })`,
+                }}
+              >
+                <div className="card-info">
+                  <div className="card-title">
+                    {type == "tv" ? item.name : item.title}
+                  </div>
+                  <div className="card-rating">{item.vote_average} &#9733;</div>
+                </div>
+              </Link>
             </>
           ))}
         </div>

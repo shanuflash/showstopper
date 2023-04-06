@@ -41,6 +41,7 @@
   background-repeat: no-repeat !important;
   background-size: cover !important;
   /* padding-bottom: 2rem; */
+  transition: background 1s ease !important;
 }
 
 .featured {
@@ -295,6 +296,10 @@ input[type="number"] {
   gap: 0.5rem;
 }
 
+.nav-scroll .test {
+  top: 3.5vw;
+}
+
 .x {
   width: 100%;
   height: 100vh;
@@ -332,14 +337,14 @@ input[type="number"] {
   padding: 1rem 0 0 2rem;
 }
 .arrow {
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 4.2vw;
+  width: 4.2vw;
   border-radius: 50%;
   border: none;
-  font-size: 2rem;
+  font-size: 3vw;
   position: relative;
   z-index: 10;
-  top: 60px;
+  top: 5vw;
   background-color: #00b4d834;
   transition: 0.5s;
   font-weight: 700;
@@ -495,6 +500,9 @@ a {
 }
 
 .movie-info-container {
+  background-color: rgba(0, 0, 0, 0.521);
+  border-radius: 1rem;
+  margin: 2rem;
   height: 100%;
 }
 
