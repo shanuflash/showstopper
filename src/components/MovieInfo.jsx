@@ -104,14 +104,28 @@ function MovieInfo() {
     }
   }, []);
 
+  const handleWatchList = (movieid) => {
+    if (WatchList.includes(movieid.toString())) {
+      setWatchList(WatchList.filter((item) => item !== movieid.toString()));
+    } else {
+      setWatchList([...WatchList, movieid.toString()]);
+    }
+  };
+
   const handleUpdate = async () => {
     if (WatchList.length > 0) {
       const { data, error } = await supabase
         .from("netflix")
         .update({ watch_list: WatchList })
         .eq("userid", User);
-      if (error) console.log(error);
-      else console.log(data);
+
+      if (!data) {
+        const { error } = await supabase
+          .from("netflix")
+          .insert({ userid: User, history: [], watch_list: WatchList });
+        if (error) console.log(error);
+        else console.log(data);
+      }
     }
   };
 
@@ -173,7 +187,8 @@ function MovieInfo() {
           <div className="featured-right">
             {Movie.vote_average?.toFixed(1)} &#9733;
             <UseAnimations
-              onClick={() => setWatchList((prev) => [...prev, Movie.id])}
+              onClick={() => handleWatchList(Movie.id)}
+              reverse={WatchList?.includes(Movie?.id?.toString())}
               fillColor="white"
               strokeColor="white"
               style={{ cursor: "pointer" }}
@@ -225,7 +240,7 @@ function MovieInfo() {
         </div>
       </div>
       <div className={`video-container ${revealed && "revealed"}`}>
-        <YoutubeEmbed embedId={Video.key} />
+        <YoutubeEmbed embedId={Video?.key} />
       </div>
 
       <div className="movie-info-container">
