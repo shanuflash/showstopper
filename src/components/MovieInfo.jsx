@@ -27,6 +27,7 @@ function MovieInfo() {
   const [Similar, setSimilar] = useState([]);
   const [Video, setVideo] = useState({});
   const [Loading, setLoading] = useState(true);
+
   useEffect(() => {
     switch (type) {
       case "m": {
@@ -110,7 +111,7 @@ function MovieInfo() {
       default:
         break;
     }
-  }, []);
+  }, [movieid]);
 
   const handleWatchList = (movieid) => {
     if (WatchList.includes(movieid.toString())) {
@@ -281,7 +282,7 @@ function MovieInfo() {
                     <img
                       src={castdefault}
                       alt=""
-                      style={{ maxWidth: "92px", maxHeight:"115px" }}
+                      style={{ maxWidth: "92px", maxHeight: "115px" }}
                     />
                   </div>
                 )}
@@ -319,12 +320,14 @@ function MovieInfo() {
         </div>
       </div>
       <div className="movie-info-container">
-        <div className="movie-info-title title">Similar Movies:</div>
+        <div className="movie-info-title title">
+          {type === "t" ? "Similar TV shows" : "Similar Movies:"}
+        </div>
         <div className="popular">
           {Similar?.slice(0, 3).map((item) => (
             <>
               <Link
-                to={`/${item.id}` + (type == "tv" ? "t" : "m")}
+                to={`/${item.id}${type == "t" ? "t" : "m"}`}
                 className="card"
                 style={{
                   background: `url(${
@@ -334,7 +337,7 @@ function MovieInfo() {
               >
                 <div className="card-info">
                   <div className="card-title">
-                    {type == "tv" ? item.name : item.title}
+                    {type == "t" ? item.name : item.title}
                   </div>
                   <div className="card-rating">{item.vote_average} &#9733;</div>
                 </div>
