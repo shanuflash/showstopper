@@ -33,7 +33,7 @@ function Login() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: window.location.origin + "/Account",
+        redirectTo: document.location.origin + "/Account",
       },
     });
   };
