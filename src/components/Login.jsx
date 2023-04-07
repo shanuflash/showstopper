@@ -28,6 +28,16 @@ function Login() {
     if (User) navigate("/");
   }, [User]);
 
+  const handleGit = async (e) => {
+    e.preventDefault();
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: window.location.origin + "/Account",
+      },
+    });
+  };
+
   return (
     <div className="Login">
       <form className="left" data-aos="fade-right">
@@ -60,6 +70,7 @@ function Login() {
           </div>
         </div>
 
+        <button onClick={(e) => handleGit(e)}>Git</button>
         <div className="button-container">
           <button onClick={handleSignin} className="signup" type="submit">
             Login
