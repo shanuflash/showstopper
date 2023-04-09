@@ -46,7 +46,7 @@ function Activity() {
     <div>
       <Nav />
       <div className="activity">
-        <div className="activity-header">
+        <div className="page-header">
           <div>Your Activity</div>
         </div>
 

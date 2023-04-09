@@ -13,20 +13,19 @@ import tmdb from "../tmdb";
 import Nav from "./Nav";
 import YoutubeEmbed from "./Youtube";
 import supabase from "../supabase";
-import logodefault from "../../public/logodefault.svg";
-import castdefault from "../../public/castdefault.svg";
+import logodefault from "../assets/logodefault.svg";
+import castdefault from "../assets/castdefault.svg";
 
 function MovieInfo() {
   const { movieid } = useParams();
   const navigate = useNavigate();
-  const { User, WatchList, setWatchList, History, setHistory, Session } =
+  const { User, WatchList, setWatchList, History, setHistory, SessionCheck } =
     useContext(DataContext);
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
   const [Credit, setCredit] = useState({});
   const [Similar, setSimilar] = useState([]);
   const [Video, setVideo] = useState({});
-  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
     switch (type) {
@@ -48,7 +47,11 @@ function MovieInfo() {
         tmdb
           .movieSimilar({ id: movieid })
           .then((res) => {
-            setSimilar(res.results.filter((a) => a.backdrop_path !== null));
+            setSimilar(
+              res.results
+                .filter((a) => a.backdrop_path !== null)
+                .sort((a, b) => b.popularity - a.popularity)
+            );
           })
           .catch(console.error);
         tmdb
@@ -61,8 +64,6 @@ function MovieInfo() {
             );
           })
           .catch(console.error);
-
-        setLoading(false);
         break;
       }
       case "t": {
@@ -83,7 +84,11 @@ function MovieInfo() {
         tmdb
           .tvSimilar({ id: movieid })
           .then((res) => {
-            setSimilar(res.results.filter((a) => a.backdrop_path !== null));
+            setSimilar(
+              res.results
+                .filter((a) => a.backdrop_path !== null)
+                .sort((a, b) => b.popularity - a.popularity)
+            );
           })
           .catch(console.error);
         tmdb
@@ -93,7 +98,6 @@ function MovieInfo() {
           })
           .catch(console.error);
 
-        setLoading(false);
         break;
       }
       case "p": {
@@ -137,10 +141,12 @@ function MovieInfo() {
   };
 
   useEffect(() => {
-    if (Session) {
-      if (User === null) navigate("/Login");
+    if (SessionCheck) {
+      if (!User) {
+        navigate("/Login");
+      }
     }
-  }, [User]);
+  }, [SessionCheck, User]);
 
   useEffect(() => {
     handleUpdate();
@@ -155,15 +161,6 @@ function MovieInfo() {
     if (!revealed) window.scrollTo({ top: 500, behavior: "smooth" });
     setRevealed(!revealed);
   };
-
-  if (Loading) {
-    return (
-      <div>
-        <Nav />
-        <div className="loading">Loading...</div>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -195,7 +192,12 @@ function MovieInfo() {
             <div className="genres">
               {Movie.genres?.map((item) => (
                 <>
-                  <div className="genre-item">{item.name}</div>
+                  <Link
+                    to={`/genre/${item.id}?genre=${item.name}&type=${type}`}
+                    className="genre-item"
+                  >
+                    {item.name}
+                  </Link>
                 </>
               ))}
             </div>

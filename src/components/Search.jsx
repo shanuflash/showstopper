@@ -78,7 +78,7 @@ function Search() {
             </button>
           </div>
         </form>
-        <div className=" search-container">
+        <div className="results-container">
           {Result?.map((item) => {
             if (Toggle === "p") {
               var path = "https://image.tmdb.org/t/p/w185" + item?.profile_path;
