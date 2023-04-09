@@ -239,7 +239,6 @@ input[type="number"] {
   gap: 0.5rem;
 }
 
-
 .search input {
   border: none;
   border-radius: 0.7rem;
@@ -724,4 +723,12 @@ a {
 
 .category .genres {
   margin-left: 2rem;
+}
+
+.search {
+  font-size: 1.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
