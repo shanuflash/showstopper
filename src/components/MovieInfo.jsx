@@ -206,7 +206,7 @@ function MovieInfo() {
             {Movie.vote_average?.toFixed(1)} &#9733;
             <UseAnimations
               onClick={() => handleWatchList(Movie.id + type)}
-              reverse={WatchList?.includes(Movie?.id?.toString())}
+              reverse={WatchList?.includes(Movie?.id?.toString() + type)}
               fillColor="white"
               strokeColor="white"
               style={{ cursor: "pointer" }}
