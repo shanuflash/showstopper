@@ -35,7 +35,9 @@ function Nav({ loc }) {
   };
 
   const handleMouseLeave = () => {
-    setIsOpen(false);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 1500);
   };
 
   const handleLogout = async () => {
