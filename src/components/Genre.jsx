@@ -151,7 +151,7 @@ function Genre() {
         <div className="no-results-container">
           <div className="no-results">
             There are no {type === "m" ? "Movies" : "TV Shows"} available,
-            related br to this genre as of now. Please go through the genre list
+            related to this genre as of now. Please go through the genre list
             and select a different genre.
           </div>
           <Link to="/Categories">Categories</Link>
