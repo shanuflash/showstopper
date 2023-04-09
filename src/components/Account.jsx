@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import supabase from "../supabase";
 import { DataContext } from "../context/DataProvider";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Acount() {
   const { User, Email, setEmail, Phno, setPhno, Name, setName, SessionCheck } =
@@ -29,8 +30,8 @@ function Acount() {
     const { data, error } = await supabase.auth.updateUser({
       password: NewPass,
     });
-    if (error) console.log(error);
-    else console.log(data, "Password updated successfully");
+    if (error) toast.error(error.message);
+    else toast.info("Password updated successfully");
   };
 
   useEffect(() => {
