@@ -231,13 +231,14 @@ input[type="number"] {
   font-size: 1.5rem;
 }
 
-.search {
+.nav-item {
   font-size: 1.5vw;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 }
+
 
 .search input {
   border: none;

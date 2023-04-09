@@ -54,13 +54,17 @@ function Nav({ loc }) {
         ShowStopper
       </Link>
       <div className="user">
+        <Link to="/Categories" className="nav-item">
+          Categories
+        </Link>
+        |
         {loc !== "/Search" && (
-          <Link to="/Search" className="search">
+          <Link to="/Search" className="nav-item">
             Search
             <FaSearch className="search-icon" />
           </Link>
         )}
-
+        |
         <div
           className="user-info"
           onMouseEnter={handleMouseEnter}
@@ -71,7 +75,6 @@ function Nav({ loc }) {
             alt=""
           />
         </div>
-
         {isOpen && (
           <div
             className="test"
