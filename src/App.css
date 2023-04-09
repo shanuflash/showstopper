@@ -676,6 +676,9 @@ a {
   background-repeat: no-repeat !important;
   background-size: cover !important;
 }
+.page-header * {
+  cursor: pointer;
+}
 
 .act {
   padding: 1rem 2rem;
@@ -685,6 +688,7 @@ a {
 
 .genre-type-change {
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .no-results-container {

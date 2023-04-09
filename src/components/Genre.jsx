@@ -112,7 +112,9 @@ function Genre() {
                       url(https://image.tmdb.org/t/p/w1280${Data[0]?.backdrop_path})`,
         }}
       >
-        {genre} - {type === "m" ? "Movies" : "TV Shows"}
+        <div className="header-title">
+          {genre} - {type === "m" ? "Movies" : "TV Shows"}
+        </div>
         <div onClick={handleTypeChange} className="genre-type-change">
           Looking for {type === "m" ? "TV Shows" : "movies"}? Click here
         </div>

@@ -37,23 +37,8 @@ function Categories() {
   return (
     <div>
       <Nav />
-      <div
-        className="page-header"
-        style={
-          {
-            // background: `linear-gradient(
-            //             to bottom,
-            //             #000000c2 0%,
-            //             #00000013 30%,
-            //             #00000000 50%,
-            //             #0c192133 60%,
-            //             #0c192169 70%,
-            //             var(--bg) 100%),
-            //             url(https://image.tmdb.org/t/p/w1280${Data[0]?.backdrop_path})`,
-          }
-        }
-      >
-        Categories
+      <div className="page-header">
+        <div className="header-title">Categories</div>
       </div>
 
       <div className="category">
