@@ -129,8 +129,7 @@ function MovieInfo() {
         .from("netflix")
         .update({ history: History, watch_list: WatchList })
         .eq("userid", User);
-
-      if (data !== null) {
+      if (data === null) {
         const { error } = await supabase
           .from("netflix")
           .insert({ userid: User, history: History, watch_list: WatchList });

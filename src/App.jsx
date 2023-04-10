@@ -85,9 +85,11 @@ function App() {
           <div className="featured-left">
             <div className="featured-icon">Featured</div>
             <div className="featured-title">
-              {Featured.title || Featured.name}
+              {Featured.title || Featured.name || "loading..."}
             </div>
-            <div className="featured-desc">{Featured.overview}</div>
+            <div className="featured-desc">
+              {Featured.overview || "loading..."}
+            </div>
           </div>
         </div>
       </div>
