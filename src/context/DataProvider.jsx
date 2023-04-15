@@ -15,6 +15,7 @@ function DataProvider({ children }) {
   const [Toggle, setToggle] = useState("m");
   const [SessionCheck, setSessionCheck] = useState(false);
 
+  
   const handleSession = async () => {
     console.log("Session");
     const { data, error } = await supabase.auth.getSession();
