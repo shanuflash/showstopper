@@ -18,8 +18,8 @@ function Login() {
     });
     if (error) toast.error(error.message);
     else {
-      localStorage.setItem("user", JSON.stringify(data));
-      setUser(data);
+      localStorage.setItem("user", JSON.stringify(data.user.id));
+      setUser(data.user.id);
       setPassword(null);
       toast.info("Successfully logged in!");
     }

@@ -30,8 +30,8 @@ function Signup() {
         .from("netflix")
         .insert({ userid: data.user.id, history: [], watch_list: [] });
       console.error(error);
-      localStorage.setItem("user", JSON.stringify(data));
-      setUser(data);
+      localStorage.setItem("user", JSON.stringify(data.user.id));
+      setUser(data.user.id);
       setPassword(null);
       toast.info("Successfully signed up!", { position: "bottom-right" });
     }
