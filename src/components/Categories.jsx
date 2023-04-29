@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
-import { DataContext } from "../context/DataProvider";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import tmdb from "../tmdb";
 import Nav from "./Nav";
 
 function Categories() {
-  const { User, SessionCheck } = useContext(DataContext);
-  const navigate = useNavigate();
   const [MovieGenre, setMovieGenre] = useState([]);
   const [TvGenre, setTvGenre] = useState([]);
 
@@ -25,14 +23,6 @@ function Categories() {
       })
       .catch(console.error);
   }, []);
-
-  useEffect(() => {
-    if (SessionCheck) {
-      if (!User) {
-        navigate("/Login");
-      }
-    }
-  }, [SessionCheck, User]);
 
   return (
     <div>

@@ -1,33 +1,17 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import supabase from "../supabase";
+import { Navigate } from "react-router-dom";
 
 export const DataContext = createContext();
-function DataProvider({ children }) {
-  const [Email, setEmail] = useState(null);
-  const [User, setUser] = useState(null);
-  const [Name, setName] = useState(null);
-  const [Phno, setPhno] = useState(null);
-  const [Data, setData] = useState([]);
+export function DataProvider({ children }) {
+  const [User, setUser] = useState(() => {
+    console.log("userup");
+    const localData = JSON.parse(localStorage.getItem("user"));
+    return localData ? localData : null;
+  });
+
   const [WatchList, setWatchList] = useState([]);
   const [History, setHistory] = useState([]);
-  const [SearchItem, setSearchItem] = useState(null);
-  const [Result, setResult] = useState([]);
-  const [Toggle, setToggle] = useState("m");
-  const [SessionCheck, setSessionCheck] = useState(false);
-
-  
-  const handleSession = async () => {
-    console.log("Session");
-    const { data, error } = await supabase.auth.getSession();
-    if (data) {
-      try {
-        setUser(data.session.user.id);
-        setSessionCheck(true);
-      } catch (error) {
-        setSessionCheck(true);
-      }
-    }
-  };
 
   const handleData = async () => {
     console.log("Data");
@@ -43,43 +27,29 @@ function DataProvider({ children }) {
   };
 
   useEffect(() => {
-    handleSession();
-  }, []);
-
-  useEffect(() => {
     if (User) handleData();
   }, [User]);
 
   return (
     <DataContext.Provider
       value={{
-        Email,
-        setEmail,
         User,
         setUser,
-        Name,
-        setName,
-        Phno,
-        setPhno,
-        Data,
-        setData,
-        SearchItem,
-        setSearchItem,
-        Result,
-        setResult,
-        Toggle,
-        setToggle,
         WatchList,
         setWatchList,
         History,
         setHistory,
-        SessionCheck,
-        setSessionCheck,
       }}
     >
       {children}
     </DataContext.Provider>
   );
 }
-
-export default DataProvider;
+export const RequireAuth = ({ children }) => {
+  const { User } = useContext(DataContext);
+  return User ? children : <Navigate to="/Login" />;
+  // const user = JSON.parse(
+  //   localStorage.getItem("sb-jvnstfpaokvohgpmuewa-auth-token")
+  // );
+  // return user ? children : <Navigate to="/Login" />;
+};

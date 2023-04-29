@@ -5,7 +5,8 @@ import supabase from "../supabase";
 import { toast } from "react-toastify";
 
 function Login() {
-  const { Email, setEmail, User, setUser } = useContext(DataContext);
+  const { User, setUser } = useContext(DataContext);
+  const [Email, setEmail] = useState(null);
   const [Password, setPassword] = useState(null);
   const navigate = useNavigate();
 
@@ -17,8 +18,8 @@ function Login() {
     });
     if (error) toast.error(error.message);
     else {
-      setUser(data.user.id);
-      setSession(true);
+      localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
       setPassword(null);
       toast.info("Successfully logged in!");
     }

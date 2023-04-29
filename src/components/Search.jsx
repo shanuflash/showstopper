@@ -1,12 +1,6 @@
-import { useContext, useEffect } from "react";
-import { DataContext } from "../context/DataProvider";
-import {
-  Link,
-  ScrollRestoration,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { BiMoviePlay, BiTv } from "react-icons/bi";
+import { useState } from "react";
+import { Link, ScrollRestoration, useLocation } from "react-router-dom";
+import { BiMoviePlay } from "react-icons/bi";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { ImTv } from "react-icons/im";
 import tmdb from "../tmdb";
@@ -14,19 +8,10 @@ import Nav from "./Nav";
 
 function Search() {
   const location = useLocation();
-  const navigate = useNavigate();
   const currentUrl = location.pathname;
-
-  const {
-    User,
-    Result,
-    setResult,
-    SearchItem,
-    setSearchItem,
-    Toggle,
-    setToggle,
-    SessionCheck,
-  } = useContext(DataContext);
+  const [SearchItem, setSearchItem] = useState(null);
+  const [Toggle, setToggle] = useState("m");
+  const [Result, setResult] = useState([]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -44,14 +29,6 @@ function Search() {
       })
       .catch(console.error);
   };
-
-  useEffect(() => {
-    if (SessionCheck) {
-      if (!User) {
-        navigate("/Login");
-      }
-    }
-  }, [SessionCheck]);
 
   return (
     <div className="App">

@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
-import { DataContext } from "../context/DataProvider";
 import tmdb from "../tmdb";
 import Nav from "./Nav";
 
 function Genre() {
-  const { User, SessionCheck } = useContext(DataContext);
   const { genreid } = useParams();
   console.log("genreid", genreid);
   const location = useLocation();
@@ -22,14 +20,6 @@ function Genre() {
         878: 10765,
         10752: 10768,
         14: 10765,
-        16: 16,
-        35: 35,
-        80: 80,
-        99: 99,
-        18: 18,
-        10751: 10751,
-        9648: 9648,
-        37: 37,
       };
       var newgenreid = genreList[genreid];
       if (newgenreid === undefined) {
@@ -42,14 +32,6 @@ function Genre() {
         10759: 12,
         10765: 878,
         10768: 10752,
-        16: 16,
-        35: 35,
-        80: 80,
-        99: 99,
-        18: 18,
-        10751: 10751,
-        9648: 9648,
-        37: 37,
       };
       var newgenreid = genreList[genreid];
       if (newgenreid === undefined) {
@@ -59,14 +41,6 @@ function Genre() {
     }
     navigate("/genre/" + newgenreid + "?genre=" + genre + "&type=" + type);
   };
-
-  useEffect(() => {
-    if (SessionCheck) {
-      if (!User) {
-        navigate("/Login");
-      }
-    }
-  }, [SessionCheck, User]);
 
   useEffect(() => {
     switch (type) {

@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { DataContext } from "../context/DataProvider";
-import tmdb from "../tmdb";
 import supabase from "../supabase";
 import { toast } from "react-toastify";
 import { FaSearch } from "react-icons/fa";
@@ -27,7 +26,7 @@ function Nav({ loc }) {
     };
   }, []);
 
-  const { setUser } = useContext(DataContext);
+  const { User, setUser } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMouseEnter = () => {
@@ -46,6 +45,7 @@ function Nav({ loc }) {
     else {
       toast.info("Successfully logged out!");
       setUser(null);
+      localStorage.removeItem("user");
       navigate("/");
     }
   };

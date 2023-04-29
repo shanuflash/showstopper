@@ -1,17 +1,11 @@
-import { useState, useEffect, useContext, useRef } from "react";
-import tmdb from "./tmdb";
-import "./App.css";
-import { DataContext } from "./context/DataProvider";
-import supabase from "./supabase";
-
-import { toast } from "react-toastify";
-import { useNavigate, Link, ScrollRestoration } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { ScrollRestoration } from "react-router-dom";
 import Nav from "./components/Nav";
 import MovieRow from "./components/MovieRow";
+import tmdb from "./tmdb";
+import "./App.css";
 
 function App() {
-  const { User, SessionCheck } = useContext(DataContext);
-
   const [Bg, setBg] = useState(
     "https://image.tmdb.org/t/p/w1280/i8dshLvq4LE3s0v8PrkDdUyb1ae.jpg"
   );
@@ -44,6 +38,10 @@ function App() {
 
   const containerRefs = useRef([]);
 
+  const setContainerRef = (index) => (ref) => {
+    containerRefs.current[index] = ref;
+  };
+
   const handleScroll = (index, scrollOffset) => {
     const newScrollLeft =
       containerRefs.current[index].scrollLeft + scrollOffset;
@@ -52,18 +50,6 @@ function App() {
       behavior: "smooth",
     });
   };
-
-  const setContainerRef = (index) => (ref) => {
-    containerRefs.current[index] = ref;
-  };
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (SessionCheck) {
-      if (!User) {
-        navigate("/Login");
-      }
-    }
-  }, [SessionCheck, User]);
 
   return (
     <div className="App">

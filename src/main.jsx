@@ -11,7 +11,7 @@ import Activity from "./components/Activity";
 import Genre from "./components/Genre";
 import MovieInfo from "./components/MovieInfo";
 import Categories from "./components/Categories";
-import DataProvider from "./context/DataProvider";
+import { DataProvider, RequireAuth } from "./context/DataProvider";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -22,7 +22,11 @@ import AOS from "aos";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <RequireAuth>
+        <App />
+      </RequireAuth>
+    ),
   },
   {
     path: "/Login",
@@ -34,27 +38,51 @@ const router = createBrowserRouter([
   },
   {
     path: "/Search",
-    element: <Search />,
+    element: (
+      <RequireAuth>
+        <Search />
+      </RequireAuth>
+    ),
   },
   {
     path: "/Account",
-    element: <Account />,
+    element: (
+      <RequireAuth>
+        <Account />
+      </RequireAuth>
+    ),
   },
   {
     path: "/Activity",
-    element: <Activity />,
+    element: (
+      <RequireAuth>
+        <Activity />
+      </RequireAuth>
+    ),
   },
   {
     path: "/Categories",
-    element: <Categories />,
+    element: (
+      <RequireAuth>
+        <Categories />
+      </RequireAuth>
+    ),
   },
   {
     path: "/:movieid",
-    element: <MovieInfo />,
+    element: (
+      <RequireAuth>
+        <MovieInfo />
+      </RequireAuth>
+    ),
   },
   {
     path: "/genre/:genreid",
-    element: <Genre />,
+    element: (
+      <RequireAuth>
+        <Genre />
+      </RequireAuth>
+    ),
   },
 ]);
 AOS.init();

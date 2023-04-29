@@ -1,10 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import {
-  ScrollRestoration,
-  useParams,
-  useNavigate,
-  Link,
-} from "react-router-dom";
+import { ScrollRestoration, useParams, Link } from "react-router-dom";
 import { BsFillPlayFill } from "react-icons/bs";
 import UseAnimations from "react-useanimations";
 import bookmark from "react-useanimations/lib/bookmark";
@@ -18,8 +13,7 @@ import castdefault from "../assets/castdefault.svg";
 
 function MovieInfo() {
   const { movieid } = useParams();
-  const navigate = useNavigate();
-  const { User, WatchList, setWatchList, History, setHistory, SessionCheck } =
+  const { WatchList, setWatchList, History, setHistory } =
     useContext(DataContext);
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
@@ -129,6 +123,8 @@ function MovieInfo() {
         .from("netflix")
         .update({ history: History, watch_list: WatchList })
         .eq("userid", User);
+      if (error) console.log(error);
+      else console.log(data);
       if (data === null) {
         const { error } = await supabase
           .from("netflix")
@@ -138,14 +134,6 @@ function MovieInfo() {
       }
     }
   };
-
-  useEffect(() => {
-    if (SessionCheck) {
-      if (!User) {
-        navigate("/Login");
-      }
-    }
-  }, [SessionCheck, User]);
 
   useEffect(() => {
     handleUpdate();

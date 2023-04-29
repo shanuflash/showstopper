@@ -5,8 +5,10 @@ import supabase from "../supabase";
 import { toast } from "react-toastify";
 
 function Signup() {
-  const { User, setUser, Email, setEmail, Name, setName, Phno, setPhno } =
-    useContext(DataContext);
+  const { User, setUser } = useContext(DataContext);
+  const [Email, setEmail] = useState(null);
+  const [Name, setName] = useState(null);
+  const [Phno, setPhno] = useState(null);
   const [Password, setPassword] = useState(null);
   const navigate = useNavigate();
 
@@ -24,14 +26,14 @@ function Signup() {
     });
     if (error) toast.error(error.message, { position: "bottom-right" });
     else {
-      toast.info("Successfully signed up!", { position: "bottom-right" });
       const { error } = await supabase
         .from("netflix")
         .insert({ userid: data.user.id, history: [], watch_list: [] });
-      console.error(error, { position: "bottom-right" });
-      setUser(data.user.id);
+      console.error(error);
+      localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
       setPassword(null);
-      navigate("/");
+      toast.info("Successfully signed up!", { position: "bottom-right" });
     }
   };
 

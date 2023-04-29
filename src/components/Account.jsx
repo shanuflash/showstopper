@@ -1,19 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import supabase from "../supabase";
-import { DataContext } from "../context/DataProvider";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Acount() {
-  const { User, Email, setEmail, Phno, setPhno, Name, setName, SessionCheck } =
-    useContext(DataContext);
+  const [Email, setEmail] = useState(null);
+  const [Name, setName] = useState(null);
+  const [Phno, setPhno] = useState(null);
   const [UserData, setUserData] = useState({});
   const [NewPass, setNewPass] = useState(null);
-  const navigate = useNavigate();
-
-  const avatarUrl = `https://ui-avatars.com/api/?name=${Name}&background=random&color=fff&rounded=true&size=150`;
-
+  if (Name) {
+    var avatarUrl = `https://ui-avatars.com/api/?name=${Name}&background=random&color=fff&rounded=true&size=150`;
+  }
   const handleUserData = async () => {
     const {
       data: { user },
@@ -27,9 +25,10 @@ function Acount() {
 
   const handlePassChange = async (e) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.updateUser({
+    const { error } = await supabase.auth.updateUser({
       password: NewPass,
     });
+    setNewPass(null);
     if (error) toast.error(error.message);
     else toast.info("Password updated successfully");
   };
@@ -37,14 +36,6 @@ function Acount() {
   useEffect(() => {
     handleUserData();
   }, []);
-
-  useEffect(() => {
-    if (SessionCheck) {
-      if (!User) {
-        navigate("/Login");
-      }
-    }
-  }, [SessionCheck]);
 
   return (
     <div>
