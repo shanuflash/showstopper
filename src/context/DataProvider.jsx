@@ -11,10 +11,10 @@ export function DataProvider({ children }) {
   const [History, setHistory] = useState([]);
 
   const handleSession = async () => {
+    console.log("Session");
     const { data, error } = await supabase.auth.getSession();
     if (error) toast.error(error.message);
-    setUser(data.session.user.id);
-    setLoading(false);
+    setUser(data.session.user.id || null);
   };
 
   const handleData = async () => {
@@ -28,6 +28,7 @@ export function DataProvider({ children }) {
       setWatchList(data[0].watch_list);
       setHistory(data[0].history);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
