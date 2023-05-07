@@ -4,14 +4,18 @@ import { Navigate } from "react-router-dom";
 
 export const DataContext = createContext();
 export function DataProvider({ children }) {
-  const [User, setUser] = useState(() => {
-    console.log("userup");
-    const localData = JSON.parse(localStorage.getItem("user"));
-    return localData ? localData : null;
-  });
+  const [User, setUser] = useState(null);
+  const [Loading, setLoading] = useState(true);
 
   const [WatchList, setWatchList] = useState([]);
   const [History, setHistory] = useState([]);
+
+  const handleSession = async () => {
+    const { data, error } = await supabase.auth.getSession();
+    if (error) toast.error(error.message);
+    setUser(data.session.user.id);
+    setLoading(false);
+  };
 
   const handleData = async () => {
     console.log("Data");
@@ -27,6 +31,9 @@ export function DataProvider({ children }) {
   };
 
   useEffect(() => {
+    handleSession();
+  }, []);
+  useEffect(() => {
     if (User) handleData();
   }, [User]);
 
@@ -39,6 +46,7 @@ export function DataProvider({ children }) {
         setWatchList,
         History,
         setHistory,
+        Loading,
       }}
     >
       {children}
@@ -46,10 +54,7 @@ export function DataProvider({ children }) {
   );
 }
 export const RequireAuth = ({ children }) => {
-  const { User } = useContext(DataContext);
+  const { User, Loading } = useContext(DataContext);
+  if (Loading) return <div>Loading...</div>;
   return User ? children : <Navigate to="/Login" />;
-  // const user = JSON.parse(
-  //   localStorage.getItem("sb-jvnstfpaokvohgpmuewa-auth-token")
-  // );
-  // return user ? children : <Navigate to="/Login" />;
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Nav from "./Nav";
 import supabase from "../supabase";
 import { toast } from "react-toastify";
@@ -9,9 +9,12 @@ function Acount() {
   const [Phno, setPhno] = useState(null);
   const [UserData, setUserData] = useState({});
   const [NewPass, setNewPass] = useState(null);
-  if (Name) {
-    var avatarUrl = `https://ui-avatars.com/api/?name=${Name}&background=random&color=fff&rounded=true&size=150`;
-  }
+  const [Loading, setLoading] = useState(true);
+
+  var avatarUrl = useMemo(() => {
+    return `https://ui-avatars.com/api/?name=${Name}&background=random&color=fff&rounded=true&size=150`;
+  }, [Name]);
+
   const handleUserData = async () => {
     const {
       data: { user },
@@ -21,6 +24,7 @@ function Acount() {
     setEmail(user.email);
     setName(user.user_metadata.name);
     setPhno(user.user_metadata.phone);
+    setLoading(false);
   };
 
   const handlePassChange = async (e) => {
@@ -33,9 +37,20 @@ function Acount() {
     else toast.info("Password updated successfully");
   };
 
+  const handleEmailChange = async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.auth.updateUser({
+      email: Email,
+    });
+    if (error) toast.error(error.message);
+    else toast.info("Email updated successfully");
+  };
+
   useEffect(() => {
     handleUserData();
   }, []);
+
+  if (Loading) return <div>Loading...</div>;
 
   return (
     <div>

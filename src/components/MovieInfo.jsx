@@ -180,6 +180,7 @@ function MovieInfo() {
               {Movie.genres?.map((item) => (
                 <>
                   <Link
+                    key={item.id}
                     to={`/genre/${item.id}?genre=${item.name}&type=${type}`}
                     className="genre-item"
                   >

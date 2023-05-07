@@ -63,6 +63,7 @@ function MovieRow({
         {Data.map((movie) => (
           <>
             <Link
+              key={movie.id}
               to={`/${movie.id}` + (type == "tv" ? "t" : "m")}
               className="card"
               style={{

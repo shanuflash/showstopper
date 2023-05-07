@@ -37,6 +37,7 @@ function Categories() {
           {MovieGenre.map((item) => (
             <>
               <Link
+                key={item.id}
                 to={`/genre/${item.id}?genre=${item.name}&type=m`}
                 className="genre-item"
               >
@@ -52,6 +53,7 @@ function Categories() {
           {TvGenre.map((item) => (
             <>
               <Link
+                key={item.id}
                 to={`/genre/${item.id}?genre=${item.name}&type=t`}
                 className="genre-item"
               >

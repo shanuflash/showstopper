@@ -48,6 +48,7 @@ function Activity() {
             {WatchListData.map((movie) => (
               <>
                 <Link
+                  key={movie.id}
                   to={`/${movie.id}`}
                   className="card"
                   style={{
@@ -76,6 +77,7 @@ function Activity() {
             {HistoryData.map((movie) => (
               <>
                 <Link
+                  key={movie.id}
                   to={`/${movie.id}`}
                   className="card"
                   style={{
