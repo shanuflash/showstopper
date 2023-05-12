@@ -34,8 +34,12 @@ export function DataProvider({ children }) {
   useEffect(() => {
     handleSession();
   }, []);
+
   useEffect(() => {
     if (User) handleData();
+    else {
+      setLoading(false);
+    }
   }, [User]);
 
   return (
