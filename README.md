@@ -1,4 +1,5 @@
 # Netflix Clone  [![Netlify Status](https://api.netlify.com/api/v1/badges/db483b71-08a4-4a68-832a-e675f2eb4c0b/deploy-status)](https://app.netlify.com/sites/netflix-shanu/deploys)
+> NextJS rewrite in progress
 
 This is a Netflix clone built with ReactJS, Supabase for database storage and authentication, and TMDB API for movie/tvshow details. The project also utilizes Toastify for toast messages, React Icons, React-useanimations for icons, React-router-dom for routing/navigation, Youtube embed for trailer playback. The project uses Vite as a build tool and is hosted on Netlify.
 
