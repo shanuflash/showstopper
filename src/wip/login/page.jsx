@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../context/DataProvider";
 import { Link, useNavigate } from "react-router-dom";

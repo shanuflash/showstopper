@@ -1,0 +1,78 @@
+.arrow-container {
+  height: 0;
+}
+
+.arrow {
+  height: 4.2vw;
+  width: 4.2vw;
+  border-radius: 50%;
+  border: none;
+  font-size: 3vw;
+  position: relative;
+  z-index: 10;
+  top: 5vw;
+  background-color: #00b4d834;
+  transition: 0.5s;
+  font-weight: 700;
+}
+.arrow:hover {
+  background-color: #00b4d8;
+  transition: 0.5s;
+}
+
+.left-arrow {
+  left: 3.5vw;
+}
+
+.right-arrow {
+  left: 90vw;
+}
+
+.popular {
+  height: 15.07vw;
+  overflow-x: scroll;
+  overflow-y: visible;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-left: 2rem;
+}
+
+.card {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  flex-shrink: 0;
+  width: 300px;
+  width: 23.7vw;
+  height: 169px;
+  height: 13.4vw;
+  border-radius: 2rem;
+  /* padding: 1rem; */
+  font-weight: 700;
+  display: flex;
+  align-items: end;
+  transition: 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-info {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.521);
+  border-radius: 2rem 0 2rem 2rem;
+  padding: 0.5rem 1.4rem;
+}
+.title {
+  font-weight: 700;
+  padding: 1rem 0 0 2rem;
+}

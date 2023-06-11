@@ -1,0 +1,138 @@
+.page-header {
+  padding-top: 6vw;
+  font-size: 2.5rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 35vh;
+  width: 100vw;
+  background: linear-gradient(
+      to bottom,
+      #000000c2 0%,
+      #00000013 30%,
+      #00000000 50%,
+      #0c192133 60%,
+      #0c192169 70%,
+      var(--bg) 100%
+    ),
+    url("../assets/root_bg.jpg");
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.category {
+  /* padding: 1rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.category .genres {
+  margin-left: 2rem;
+}
+.genres {
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.genre-item {
+  font-size: 1.3vw;
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.521);
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  transition: 0.2s !important;
+  cursor: pointer;
+}
+
+.genre-item:hover {
+  font-weight: 700;
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+.title {
+  font-weight: 700;
+  padding: 1rem 0 0 2rem;
+}
+
+.genre-type-change {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.results-container {
+  padding: 1rem;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+}
+
+.no-results-container {
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-results {
+  width: 60vw;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.no-results-container a {
+  margin-top: 2rem;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: var(--ascent);
+  color: white;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.card {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  flex-shrink: 0;
+  width: 300px;
+  width: 23.7vw;
+  height: 169px;
+  height: 13.4vw;
+  border-radius: 2rem;
+  /* padding: 1rem; */
+  font-weight: 700;
+  display: flex;
+  align-items: end;
+  transition: 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-info {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.521);
+  border-radius: 2rem 0 2rem 2rem;
+  padding: 0.5rem 1.4rem;
+}

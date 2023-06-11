@@ -1,6 +1,7 @@
+"use client";
 import { useEffect, useState, useContext } from "react";
-import { ScrollRestoration, useParams, Link } from "react-router-dom";
-import { BsFillPlayFill } from "react-icons/bs";
+
+// import { BsFillPlayFill } from "react-icons/bs";
 import UseAnimations from "react-useanimations";
 import bookmark from "react-useanimations/lib/bookmark";
 import { DataContext } from "../context/DataProvider";
@@ -152,7 +153,7 @@ function MovieInfo() {
   return (
     <div>
       <ScrollRestoration />
-      <Nav />
+
       <div
         className="movie-info"
         style={{

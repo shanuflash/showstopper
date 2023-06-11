@@ -1,16 +1,21 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+"use client";
+import styles from "@/styles/movierow.module.css";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { toast } from "react-toastify";
 import tmdb from "../tmdb";
 
-function MovieRow({
-  index,
-  genre = 80,
-  title = null,
-  type = "gen",
-  handleScroll,
-  setContainerRef,
-}) {
+function MovieRow({ index, genre = 80, title = null, type = "gen" }) {
+  const containerRef = useRef(null);
+
+  const handleScroll = (index, scrollOffset) => {
+    const newScrollLeft = containerRef.current.scrollLeft + scrollOffset;
+    containerRef.current.scrollTo({
+      left: newScrollLeft,
+      behavior: "smooth",
+    });
+  };
+
   const [Data, setData] = useState([]);
 
   useEffect(() => {
@@ -42,41 +47,45 @@ function MovieRow({
   }, []);
 
   return (
-    <div className="movie-container">
-      {(type == "gen" || type == "tv") && <div className="title">{title}</div>}
-      <div className="arrow-container">
+    <div className={styles["movie-container"]}>
+      {(type == "gen" || type == "tv") && (
+        <div className={styles.title}>{title}</div>
+      )}
+      <div className={styles["arrow-container"]}>
         <button
-          className="arrow left-arrow"
+          className={`${styles.arrow} ${styles["left-arrow"]}`}
           onClick={() => handleScroll(index, -664)}
         >
           &lt;
         </button>
 
         <button
-          className="arrow right-arrow"
+          className={`${styles.arrow} ${styles["right-arrow"]}`}
           onClick={() => handleScroll(index, 664)}
         >
           &gt;
         </button>
       </div>
-      <div ref={setContainerRef(index)} className="popular">
+      <div ref={containerRef} className={styles.popular}>
         {Data.map((movie) => (
           <>
             <Link
               key={movie.id}
-              to={`/${movie.id}` + (type == "tv" ? "t" : "m")}
-              className="card"
+              href={`/${movie.id}` + (type == "tv" ? "t" : "m")}
+              className={styles.card}
               style={{
                 background: `url(${
                   "https://image.tmdb.org/t/p/w300" + movie.backdrop_path
                 })`,
               }}
             >
-              <div className="card-info">
-                <div className="card-title">
+              <div className={styles["card-info"]}>
+                <div className={styles["card-title"]}>
                   {type == "tv" ? movie.name : movie.title}
                 </div>
-                <div className="card-rating">{movie.vote_average} &#9733;</div>
+                <div className={styles["card-rating"]}>
+                  {movie.vote_average} &#9733;
+                </div>
               </div>
             </Link>
           </>

@@ -1,0 +1,70 @@
+.nav-scroll .logo {
+  font-size: 3vw;
+  transition: 0.5s;
+}
+
+.logo {
+  font-family: "Bebas Neue", cursive;
+  font-size: 3.8vw;
+  transition: 0.5s;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info {
+  display: flex;
+}
+
+.nav-item {
+  font-size: 1.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.search-icon {
+  font-size: 1.5rem;
+}
+
+.menu-item {
+  cursor: pointer;
+}
+.menu-item:hover {
+  color: var(--ascent);
+}
+.test {
+  position: absolute;
+  top: 4vw;
+  right: 0;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  display: flex;
+  /* background: linear-gradient(to bottom, #00000086, #00000013); */
+  justify-content: space-between;
+  /* position: absolute; */
+  top: 0;
+  width: 100vw;
+  padding: 0 2rem;
+  z-index: 100;
+  transition: 0.5s;
+}
+
+.nav-scroll {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  transition: 0.5s;
+}

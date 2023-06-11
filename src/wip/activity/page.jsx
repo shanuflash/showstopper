@@ -1,3 +1,4 @@
+"use client";
 import { useContext, useEffect, useState } from "react";
 import Nav from "./Nav";
 import { DataContext } from "../context/DataProvider";
@@ -36,7 +37,7 @@ function Activity() {
 
   return (
     <div>
-      <Nav />
+
       <div className="activity">
         <div className="page-header">
           <div>Your Activity</div>

@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Link, ScrollRestoration, useLocation } from "react-router-dom";
 import { BiMoviePlay } from "react-icons/bi";

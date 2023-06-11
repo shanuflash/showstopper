@@ -1,0 +1,48 @@
+.master {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  /* padding-bottom: 2rem; */
+  transition: background 1s ease !important;
+}
+
+.featured {
+  display: flex;
+  width: 100%;
+  padding: 3rem 2rem;
+}
+
+.featured-left {
+  width: 60%;
+}
+.featured-right {
+  font-size: 2rem;
+  width: 50%;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.featured-icon {
+  font-size: 0.8rem;
+  font-size: 1.1vw;
+  font-weight: 800;
+}
+.featured-title {
+  /* font-size: 1.8rem; */
+  font-size: 2.3vw;
+  font-weight: 800;
+}
+
+.featured-desc {
+  font-weight: 500;
+  font-size: 1.27vw;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

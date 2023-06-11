@@ -1,14 +1,16 @@
-import { useContext, useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { DataContext } from "../context/DataProvider";
+"use client";
+import styles from "@/styles/nav.module.css";
+import { useState, useEffect } from "react";
+
 import profile from "../assets/profile.png";
-import supabase from "../supabase";
-import { toast } from "react-toastify";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FaSearch } from "react-icons/fa";
+import Link from "next/link";
+import Image from "next/image";
 
 function Nav({ loc }) {
   const [show, handleShow] = useState(false);
-  const navigate = useNavigate();
+  const supabase = createClientComponentClient();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -27,7 +29,6 @@ function Nav({ loc }) {
     };
   }, []);
 
-  const { setUser } = useContext(DataContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMouseEnter = () => {
@@ -51,42 +52,42 @@ function Nav({ loc }) {
   };
 
   return (
-    <div className={`nav ${show && "nav-scroll"}`}>
-      <Link to="/" className="logo">
+    <div className={`${styles.nav} ${show && styles["nav-scroll"]}`}>
+      <Link href="/" className={styles.logo}>
         ShowStopper
       </Link>
-      <div className="user">
-        <Link to="/Categories" className="nav-item">
+      <div className={styles.user}>
+        <Link href="/genre" className={styles["nav-item"]}>
           Categories
         </Link>
         |
         {loc !== "/Search" && (
-          <Link to="/Search" className="nav-item">
+          <Link href="/Search" className={styles["nav-item"]}>
             Search
-            <FaSearch className="search-icon" />
+            <FaSearch className={styles["search-icon"]} />
           </Link>
         )}
         |
         <div
-          className="user-info"
+          className={styles["user-info"]}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <img src={profile} alt="" />
+          <Image src={profile} alt="" height={32} width={32} />
         </div>
         {isOpen && (
           <div
-            className="test"
+            className={styles.test}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Link to="/Account" className="menu-item">
+            <Link href="/Account" className={styles["menu-item"]}>
               Account
             </Link>
-            <Link to="/Activity" className="menu-item">
+            <Link href="/Activity" className={styles["menu-item"]}>
               Activity
             </Link>
-            <div className="menu-item" onClick={handleLogout}>
+            <div className={styles["menu-item"]} onClick={handleLogout}>
               Logout
             </div>
           </div>

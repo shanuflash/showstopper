@@ -1,5 +1,3 @@
-import React from "react";
-
 function YoutubeEmbed({ embedId }) {
   return (
     <div className="video">

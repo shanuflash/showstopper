@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useMemo } from "react";
 import Nav from "./Nav";
 import supabase from "../supabase";
@@ -54,7 +55,7 @@ function Acount() {
 
   return (
     <div>
-      <Nav />
+
       <div className="user-data">
         <div className="user-data-item">
           <div className="user-data-left">Personal Info</div>
