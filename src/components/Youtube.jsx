@@ -1,6 +1,10 @@
 function YoutubeEmbed({ embedId }) {
   return (
-    <div className="video">
+    <div
+      style={{
+        marginTop: "3rem",
+      }}
+    >
       <iframe
         width="853"
         height="480"
