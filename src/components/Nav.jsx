@@ -7,9 +7,13 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 
-function Nav({ loc }) {
+function Nav() {
   const [show, handleShow] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+
   const supabase = createClientComponentClient();
 
   useEffect(() => {
@@ -42,14 +46,12 @@ function Nav({ loc }) {
   };
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) toast.error(error.message);
-    else {
-      toast.info("Successfully logged out!");
-      setUser(null);
-      navigate("/");
-    }
+    await supabase.auth.signOut();
+    router.refresh();
+    // router.push("/login");
   };
+
+  if (pathname === "/login" || pathname === "/signup") return null;
 
   return (
     <div className={`${styles.nav} ${show && styles["nav-scroll"]}`}>
@@ -61,12 +63,10 @@ function Nav({ loc }) {
           Categories
         </Link>
         |
-        {loc !== "/Search" && (
-          <Link href="/Search" className={styles["nav-item"]}>
-            Search
-            <FaSearch className={styles["search-icon"]} />
-          </Link>
-        )}
+        <Link href="/search" className={styles["nav-item"]}>
+          Search
+          <FaSearch className={styles["search-icon"]} />
+        </Link>
         |
         <div
           className={styles["user-info"]}
@@ -81,10 +81,10 @@ function Nav({ loc }) {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <Link href="/Account" className={styles["menu-item"]}>
+            <Link href="/account" className={styles["menu-item"]}>
               Account
             </Link>
-            <Link href="/Activity" className={styles["menu-item"]}>
+            <Link href="/activity" className={styles["menu-item"]}>
               Activity
             </Link>
             <div className={styles["menu-item"]} onClick={handleLogout}>

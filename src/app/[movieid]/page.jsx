@@ -1,8 +1,7 @@
 import styles from "@/styles/movie.module.css";
 
-import UseAnimations from "react-useanimations";
-import bookmark from "react-useanimations/lib/bookmark";
 import MovieCard from "./movieCard";
+import WatchList from "./watchList.jsx";
 
 import tmdb from "@/tmdb";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -41,13 +40,7 @@ async function MovieInfo({ params }) {
     }
   }
 
-  // const handleWatchList = (movieid) => {
-  //   if (WatchList.includes(movieid.toString())) {
-  //     setWatchList(WatchList.filter((item) => item !== movieid.toString()));
-  //   } else {
-  //     setWatchList([...WatchList, movieid.toString()]);
-  //   }
-  // };
+
 
   // const handleUpdate = async () => {
   //   if (WatchList.length > 0 || History.length > 0) {
@@ -66,8 +59,6 @@ async function MovieInfo({ params }) {
   //     }
   //   }
   // };
-
-  // handleUpdate();
 
   return (
     <div>
@@ -110,15 +101,7 @@ async function MovieInfo({ params }) {
           </div>
           <div className={styles["featured-right"]}>
             {Movie.vote_average?.toFixed(1)} &#9733;
-            {/* <UseAnimations
-              onClick={() => handleWatchList(Movie.id + type)}
-              reverse={WatchList?.includes(Movie?.id?.toString() + type)}
-              fillColor="white"
-              strokeColor="white"
-              style={{ cursor: "pointer" }}
-              animation={bookmark}
-              size={56}
-            /> */}
+            <WatchList />
           </div>
         </div>
       </div>

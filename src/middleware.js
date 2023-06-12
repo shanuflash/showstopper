@@ -8,17 +8,17 @@ export async function middleware(req) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  // if (
-  //   !session &&
-  //   (pathname === "/" ||
-  //     pathname === "/details" ||
-  //     pathname === "/preview" ||
-  //     pathname === "/history")
-  // ) {
-  //   return NextResponse.redirect(new URL("/login", req.url));
-  // }
+  if (
+    !session &&
+    (pathname === "/" ||
+      pathname === "/search" ||
+      pathname === "/activity" ||
+      pathname === "/genre" ||
+      pathname === "/account")
+  ) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  } else if (session && (pathname === "/login" || pathname === "/signup")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
   return res;
-  // if (!session && pathname !== "/login") {
-  //   return NextResponse.redirect("localhost:3000/login");
-  // }
 }
