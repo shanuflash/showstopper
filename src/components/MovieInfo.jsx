@@ -13,7 +13,7 @@ import castdefault from "../assets/castdefault.svg";
 
 function MovieInfo() {
   const { movieid } = useParams();
-  const { WatchList, setWatchList, History, setHistory } =
+  const { WatchList, setWatchList, History, setHistory, User } =
     useContext(DataContext);
   const type = movieid.charAt(movieid.length - 1);
   const [Movie, setMovie] = useState({});
@@ -119,19 +119,14 @@ function MovieInfo() {
 
   const handleUpdate = async () => {
     if (WatchList.length > 0 || History.length > 0) {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("netflix")
-        .update({ history: History, watch_list: WatchList })
-        .eq("userid", User);
-      if (error) console.log(error);
-      else console.log(data);
-      if (data === null) {
-        const { error } = await supabase
+        .insert({ userid: User, history: History, watch_list: WatchList });
+      if (error)
+        await supabase
           .from("netflix")
-          .insert({ userid: User, history: History, watch_list: WatchList });
-        if (error) console.log(error);
-        else console.log(data);
-      }
+          .update({ history: History, watch_list: WatchList })
+          .eq("userid", User);
     }
   };
 

@@ -13,8 +13,11 @@ export function DataProvider({ children }) {
   const handleSession = async () => {
     console.log("Session");
     const { data, error } = await supabase.auth.getSession();
+
     if (error) toast.error(error.message);
-    setUser(data.session.user.id || null);
+    setUser(data?.session?.user.id);
+    setLoading(false);
+    // if (data.session.user.id)
   };
 
   const handleData = async () => {
@@ -28,7 +31,6 @@ export function DataProvider({ children }) {
       setWatchList(data[0].watch_list);
       setHistory(data[0].history);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -37,9 +39,6 @@ export function DataProvider({ children }) {
 
   useEffect(() => {
     if (User) handleData();
-    else {
-      setLoading(false);
-    }
   }, [User]);
 
   return (
