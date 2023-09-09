@@ -3,7 +3,7 @@
 
 This is a Netflix clone built with ReactJS, Supabase for database storage and authentication, and TMDB API for movie/tvshow details. The project also utilizes Toastify for toast messages, React Icons, React-useanimations for icons, React-router-dom for routing/navigation, Youtube embed for trailer playback. The project uses Vite as a build tool and is hosted on Netlify.
 
->Project is hosted on https://netflix-shanu.netlify.app/  
+>Project is hosted on https://show-stopper.netlify.app/ 
 ## Table of Contents
 - Getting Started
   - Prerequisites
